@@ -1,0 +1,14 @@
+{
+  "n_queries": 200,
+  "n_zero_evidence": 0,
+  "avg_evidence_count": 5.0,
+  "top1_similarity": {
+    "min": 0.2152,
+    "p25": 0.28522499999999995,
+    "median": 0.33540000000000003,
+    "p75": 0.398025,
+    "max": 0.9657
+  },
+  "proxy_topical_match_rate": 0.295,
+  "proxy_match_caveat": "Bounded by weak labeler's own accuracy (~53-66%), not a clean retrieval metric."
+}

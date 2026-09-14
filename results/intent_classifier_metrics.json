@@ -1,0 +1,704 @@
+{
+  "trivial_majority": {
+    "system": "Baseline 1: Majority-class intent",
+    "n": 200,
+    "accuracy": 0.12,
+    "macro_f1": 0.0195,
+    "per_class": {
+      "FLIGHT_STATUS_DELAY_CANCEL": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 21
+      },
+      "BOOKING_CHANGE": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 14
+      },
+      "BAGGAGE": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 20
+      },
+      "REFUND_COMPENSATION": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 15
+      },
+      "CHECKIN_BOARDING": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 15
+      },
+      "LOYALTY_MILES": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 17
+      },
+      "ACCOUNT_WEBSITE_APP": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 23
+      },
+      "SAFETY_SECURITY": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 13
+      },
+      "COMPLIMENT": {
+        "precision": 0.12,
+        "recall": 1.0,
+        "f1": 0.214,
+        "support": 24
+      },
+      "COMPLAINT_GENERAL": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 24
+      },
+      "OTHER_UNCLEAR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 14
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "FLIGHT_STATUS_DELAY_CANCEL",
+        "BOOKING_CHANGE",
+        "BAGGAGE",
+        "REFUND_COMPENSATION",
+        "CHECKIN_BOARDING",
+        "LOYALTY_MILES",
+        "ACCOUNT_WEBSITE_APP",
+        "SAFETY_SECURITY",
+        "COMPLIMENT",
+        "COMPLAINT_GENERAL",
+        "OTHER_UNCLEAR"
+      ],
+      "matrix": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          21,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          14,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          20,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          15,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          15,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          17,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          23,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          13,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          24,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          24,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          14,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "simple_ml_baseline": {
+    "system": "Baseline 3: TF-IDF unigrams + LogisticRegression (weak-supervised)",
+    "n": 200,
+    "accuracy": 0.535,
+    "macro_f1": 0.4991,
+    "per_class": {
+      "FLIGHT_STATUS_DELAY_CANCEL": {
+        "precision": 0.469,
+        "recall": 0.714,
+        "f1": 0.566,
+        "support": 21
+      },
+      "BOOKING_CHANGE": {
+        "precision": 0.462,
+        "recall": 0.429,
+        "f1": 0.444,
+        "support": 14
+      },
+      "BAGGAGE": {
+        "precision": 0.81,
+        "recall": 0.85,
+        "f1": 0.829,
+        "support": 20
+      },
+      "REFUND_COMPENSATION": {
+        "precision": 1.0,
+        "recall": 0.4,
+        "f1": 0.571,
+        "support": 15
+      },
+      "CHECKIN_BOARDING": {
+        "precision": 0.857,
+        "recall": 0.4,
+        "f1": 0.545,
+        "support": 15
+      },
+      "LOYALTY_MILES": {
+        "precision": 0.857,
+        "recall": 0.353,
+        "f1": 0.5,
+        "support": 17
+      },
+      "ACCOUNT_WEBSITE_APP": {
+        "precision": 1.0,
+        "recall": 0.174,
+        "f1": 0.296,
+        "support": 23
+      },
+      "SAFETY_SECURITY": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 13
+      },
+      "COMPLIMENT": {
+        "precision": 0.739,
+        "recall": 0.708,
+        "f1": 0.723,
+        "support": 24
+      },
+      "COMPLAINT_GENERAL": {
+        "precision": 0.615,
+        "recall": 0.667,
+        "f1": 0.64,
+        "support": 24
+      },
+      "OTHER_UNCLEAR": {
+        "precision": 0.23,
+        "recall": 1.0,
+        "f1": 0.373,
+        "support": 14
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "FLIGHT_STATUS_DELAY_CANCEL",
+        "BOOKING_CHANGE",
+        "BAGGAGE",
+        "REFUND_COMPENSATION",
+        "CHECKIN_BOARDING",
+        "LOYALTY_MILES",
+        "ACCOUNT_WEBSITE_APP",
+        "SAFETY_SECURITY",
+        "COMPLIMENT",
+        "COMPLAINT_GENERAL",
+        "OTHER_UNCLEAR"
+      ],
+      "matrix": [
+        [
+          15,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          4
+        ],
+        [
+          2,
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          5
+        ],
+        [
+          3,
+          0,
+          17,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          6,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          4
+        ],
+        [
+          3,
+          0,
+          1,
+          0,
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5
+        ],
+        [
+          2,
+          2,
+          0,
+          0,
+          0,
+          6,
+          0,
+          0,
+          1,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          0,
+          0,
+          1,
+          0,
+          4,
+          0,
+          3,
+          5,
+          7
+        ],
+        [
+          1,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          10
+        ],
+        [
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          17,
+          0,
+          4
+        ],
+        [
+          3,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          14
+        ]
+      ]
+    }
+  },
+  "final_classifier": {
+    "system": "Final classifier: TF-IDF (uni+bi) + Calibrated LinearSVC (weak-supervised)",
+    "n": 200,
+    "accuracy": 0.665,
+    "macro_f1": 0.65,
+    "per_class": {
+      "FLIGHT_STATUS_DELAY_CANCEL": {
+        "precision": 0.441,
+        "recall": 0.714,
+        "f1": 0.545,
+        "support": 21
+      },
+      "BOOKING_CHANGE": {
+        "precision": 0.562,
+        "recall": 0.643,
+        "f1": 0.6,
+        "support": 14
+      },
+      "BAGGAGE": {
+        "precision": 0.842,
+        "recall": 0.8,
+        "f1": 0.821,
+        "support": 20
+      },
+      "REFUND_COMPENSATION": {
+        "precision": 0.917,
+        "recall": 0.733,
+        "f1": 0.815,
+        "support": 15
+      },
+      "CHECKIN_BOARDING": {
+        "precision": 0.846,
+        "recall": 0.733,
+        "f1": 0.786,
+        "support": 15
+      },
+      "LOYALTY_MILES": {
+        "precision": 0.9,
+        "recall": 0.529,
+        "f1": 0.667,
+        "support": 17
+      },
+      "ACCOUNT_WEBSITE_APP": {
+        "precision": 1.0,
+        "recall": 0.261,
+        "f1": 0.414,
+        "support": 23
+      },
+      "SAFETY_SECURITY": {
+        "precision": 1.0,
+        "recall": 0.231,
+        "f1": 0.375,
+        "support": 13
+      },
+      "COMPLIMENT": {
+        "precision": 0.731,
+        "recall": 0.792,
+        "f1": 0.76,
+        "support": 24
+      },
+      "COMPLAINT_GENERAL": {
+        "precision": 0.741,
+        "recall": 0.833,
+        "f1": 0.784,
+        "support": 24
+      },
+      "OTHER_UNCLEAR": {
+        "precision": 0.412,
+        "recall": 1.0,
+        "f1": 0.583,
+        "support": 14
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "FLIGHT_STATUS_DELAY_CANCEL",
+        "BOOKING_CHANGE",
+        "BAGGAGE",
+        "REFUND_COMPENSATION",
+        "CHECKIN_BOARDING",
+        "LOYALTY_MILES",
+        "ACCOUNT_WEBSITE_APP",
+        "SAFETY_SECURITY",
+        "COMPLIMENT",
+        "COMPLAINT_GENERAL",
+        "OTHER_UNCLEAR"
+      ],
+      "matrix": [
+        [
+          15,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          4
+        ],
+        [
+          2,
+          9,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          2
+        ],
+        [
+          3,
+          0,
+          16,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          11,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          3,
+          0,
+          1,
+          0,
+          11,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          2,
+          0,
+          0,
+          0,
+          9,
+          0,
+          0,
+          1,
+          0,
+          2
+        ],
+        [
+          2,
+          2,
+          0,
+          0,
+          1,
+          0,
+          6,
+          0,
+          4,
+          4,
+          4
+        ],
+        [
+          1,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          3,
+          0,
+          0,
+          7
+        ],
+        [
+          1,
+          2,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          19,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          20,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          14
+        ]
+      ]
+    }
+  }
+}

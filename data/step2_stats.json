@@ -1,0 +1,44 @@
+{
+  "aa_outbound_rows": 36764,
+  "parent_rows_found": 36457,
+  "parent_ids_requested": 36524,
+  "raw_resolution_pairs": 36531,
+  "raw_thread_count": 26385,
+  "removed_empty_customer": 168,
+  "removed_empty_agent": 1,
+  "removed_exact_duplicates": 5,
+  "pairs_after_cleaning": 36357,
+  "splits": {
+    "train": {
+      "pairs": 25451,
+      "threads": 18539,
+      "date_min": "2011-06-16T13:38:36+00:00",
+      "date_max": "2017-11-30T23:15:49+00:00"
+    },
+    "dev": {
+      "pairs": 5453,
+      "threads": 3885,
+      "date_min": "2017-11-14T03:44:02+00:00",
+      "date_max": "2017-12-03T17:53:38+00:00"
+    },
+    "eval": {
+      "pairs": 5453,
+      "threads": 3874,
+      "date_min": "2017-11-24T18:55:53+00:00",
+      "date_max": "2017-12-03T22:55:11+00:00"
+    }
+  },
+  "leakage_thread_violations": 0,
+  "leakage_cross_split_text": {
+    "dev": {
+      "dup_customer_text_in_train": 54,
+      "dup_aa_text_in_train": 222,
+      "total": 5453
+    },
+    "eval": {
+      "dup_customer_text_in_train": 50,
+      "dup_aa_text_in_train": 179,
+      "total": 5453
+    }
+  }
+}

@@ -1,0 +1,13 @@
+# Core (used by everything that actually ran in development)
+scikit-learn>=1.3
+numpy>=1.24
+scipy>=1.10
+joblib>=1.3
+
+# Reply generation + LLM judge (Step 5-6 in README -- requires your own API key)
+anthropic>=0.30
+
+# Optional: real embedding-based retrieval (src/retrieval/retrieve.py --backend embedding)
+# Requires internet access to install and to download the model at first run.
+# sentence-transformers>=2.2
+# faiss-cpu>=1.7

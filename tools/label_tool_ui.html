@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AmericanAir Golden Set — Labeling Tool</title>
+<style>
+  :root { --bg:#0f1216; --panel:#171b21; --border:#2a2f38; --text:#e8eaed; --muted:#9aa4b2;
+          --accent:#5b8def; --good:#3fb950; --warn:#e3b341; --bad:#f85149; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); }
+  #app { display:flex; height:100vh; }
+  #sidebar { width:220px; border-right:1px solid var(--border); overflow-y:auto; padding:12px; flex-shrink:0; }
+  #main { flex:1; overflow-y:auto; padding:24px 32px; max-width:900px; }
+  #taxo { width:340px; border-left:1px solid var(--border); overflow-y:auto; padding:16px; flex-shrink:0; background:var(--panel); }
+  h1 { font-size:16px; margin:0 0 4px; }
+  .sub { color:var(--muted); font-size:12px; margin-bottom:16px; }
+  .progress-wrap { background:#000; border-radius:6px; height:8px; overflow:hidden; margin:8px 0 12px; }
+  .progress-bar { background:var(--good); height:100%; transition:width .2s; }
+  .idx-list { list-style:none; margin:0; padding:0; font-size:12px; }
+  .idx-list li { padding:5px 8px; border-radius:4px; cursor:pointer; display:flex; justify-content:space-between; }
+  .idx-list li:hover { background:#20252d; }
+  .idx-list li.active { background:var(--accent); color:#fff; }
+  .idx-list li.done::after { content:"✓"; color:var(--good); }
+  .idx-list li.active.done::after { color:#fff; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:18px; margin-bottom:16px; }
+  .tag { display:inline-block; font-size:11px; padding:2px 8px; border-radius:10px; background:#242a33; color:var(--muted); margin-right:6px; }
+  .customer-text { font-size:17px; line-height:1.5; margin:10px 0; padding:12px; background:#12151a; border-left:3px solid var(--accent); border-radius:4px; }
+  .context-turn { font-size:13px; color:var(--muted); padding:8px 10px; border-left:2px solid #333; margin-bottom:6px; }
+  .context-turn .who { font-weight:600; }
+  .raw-toggle, .hint-toggle { font-size:12px; color:var(--accent); cursor:pointer; background:none; border:none; padding:0; margin-top:6px; }
+  .raw-box, .hint-box { display:none; font-size:12px; color:var(--muted); margin-top:6px; padding:8px; background:#12151a; border-radius:4px; }
+  label { display:block; font-size:12px; color:var(--muted); margin:14px 0 4px; font-weight:600; }
+  select, input[type=text], textarea { width:100%; padding:8px; background:#12151a; border:1px solid var(--border); color:var(--text); border-radius:5px; font-size:14px; font-family:inherit; }
+  textarea { min-height:50px; resize:vertical; }
+  .radio-row, .yn-row { display:flex; gap:8px; margin-top:4px; }
+  .radio-row button, .yn-row button { flex:1; padding:8px; border-radius:5px; border:1px solid var(--border); background:#12151a; color:var(--text); cursor:pointer; font-size:13px; }
+  .radio-row button.sel, .yn-row button.sel-yes { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .yn-row button.sel-no { background:#2a2f38; }
+  .yn-row button.escalate-sel { background:var(--bad); border-color:var(--bad); color:#fff; }
+  #esc-reason-wrap { display:none; }
+  .footer-nav { display:flex; gap:10px; margin-top:20px; position:sticky; bottom:0; background:var(--bg); padding:14px 0; }
+  .footer-nav button { padding:10px 18px; border-radius:6px; border:none; cursor:pointer; font-size:14px; font-weight:600; }
+  #btn-prev { background:#2a2f38; color:var(--text); }
+  #btn-save-next { background:var(--good); color:#fff; }
+  #save-status { font-size:12px; color:var(--muted); align-self:center; }
+  .taxo-item { margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+  .taxo-item b { color:var(--accent); font-size:13px; }
+  .taxo-item p { font-size:12px; color:var(--text); margin:4px 0; }
+  .taxo-item .lbl { color:var(--muted); font-size:11px; text-transform:uppercase; }  .draft-banner { background:#3a2f12; border:1px solid var(--warn); color:var(--warn); padding:10px 12px; border-radius:6px; font-size:13px; margin-bottom:14px; font-weight:600; }
+  .confirmed-banner { background:#12321a; border:1px solid var(--good); color:var(--good); padding:8px 12px; border-radius:6px; font-size:12px; margin-bottom:14px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="sidebar">
+    <h1>Progress</h1>
+    <div class="progress-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+    <div class="sub" id="progress-text">0 / 200 labeled</div>
+    <ul class="idx-list" id="idx-list"></ul>
+  </div>
+
+  <div id="main">
+    <h1>AmericanAir Golden Set — Example <span id="cur-num">1</span> / 200</h1>
+    <div class="sub" id="meta-line"></div>
+    <div id="draft-banner-slot"></div>
+
+    <div class="card" id="context-card" style="display:none">
+      <div class="tag">THREAD CONTEXT (prior turns)</div>
+      <div id="context-turns"></div>
+    </div>
+
+    <div class="card">
+      <span class="tag" id="stratum-tag"></span>
+      <span class="tag" id="turn-tag"></span>
+      <div class="customer-text" id="customer-text"></div>
+      <button class="raw-toggle" onclick="toggleRaw()">show raw original tweet text</button>
+      <div class="raw-box" id="raw-box"></div>
+      <button class="hint-toggle" onclick="toggleHint()">reveal low-precision system hint (not a prediction — use with caution)</button>
+      <div class="hint-box" id="hint-box"></div>
+    </div>
+
+    <div class="card">
+      <label>gold_intent — pick exactly one</label>
+      <div id="intent-buttons" class="radio-row" style="flex-wrap:wrap"></div>
+
+      <label>gold_intent_confidence_note (optional — note here if you were torn between two)</label>
+      <input type="text" id="intent-note">
+
+      <label>gold_action — what should the agent actually do?</label>
+      <input type="text" id="gold-action" placeholder="e.g. provide flight status update / initiate refund / escalate to human">
+
+      <label>gold_escalation</label>
+      <div class="yn-row">
+        <button id="esc-yes" onclick="setEscalation(true)">ESCALATE</button>
+        <button id="esc-no" onclick="setEscalation(false)">AUTO_HANDLE</button>
+      </div>
+      <div id="esc-reason-wrap">
+        <label>gold_escalation_reason (required)</label>
+        <input type="text" id="esc-reason">
+      </div>
+
+      <label>difficulty</label>
+      <div class="radio-row">
+        <button data-v="easy" onclick="setDifficulty('easy')">easy</button>
+        <button data-v="medium" onclick="setDifficulty('medium')">medium</button>
+        <button data-v="hard" onclick="setDifficulty('hard')">hard</button>
+      </div>
+
+      <label>notes</label>
+      <textarea id="notes" placeholder="multi-intent, sarcasm, missing context, sensitive content, anything relevant"></textarea>
+    </div>
+
+    <div class="footer-nav">
+      <button id="btn-prev" onclick="go(-1)">&larr; Previous</button>
+      <button id="btn-save-next" onclick="saveAndNext()">Save &amp; Next &rarr;</button>
+      <span id="save-status"></span>
+    </div>
+  </div>
+
+  <div id="taxo">
+    <h1>Taxonomy reference</h1>
+    <div id="taxo-list"></div>
+  </div>
+</div>
+
+<script>
+let DATA = null;
+let cur = 0;
+let state = {}; // in-memory working copy per pair_id
+
+async function load() {
+  const res = await fetch('/api/data');
+  DATA = await res.json();
+  renderTaxo();
+  renderSidebar();
+  DATA.candidates.forEach(c => {
+    state[c.pair_id] = DATA.labels[c.pair_id] || null;
+  });
+  render();
+}
+
+function renderTaxo() {
+  const el = document.getElementById('taxo-list');
+  el.innerHTML = DATA.taxonomy.map(t => `
+    <div class="taxo-item">
+      <b>${t.name}</b>
+      <p>${t.definition}</p>
+      <div class="lbl">Include</div><p>${t.include}</p>
+      <div class="lbl">Exclude</div><p>${t.exclude}</p>
+    </div>`).join('');
+}
+
+function renderSidebar() {
+  const el = document.getElementById('idx-list');
+  el.innerHTML = DATA.candidates.map((c,i) => {
+    const done = !!state[c.pair_id];
+    const hasDraft = DATA.drafts && !!DATA.drafts[c.pair_id] && !done;
+    let cls = i===cur ? 'active' : '';
+    if (done) cls += ' done';
+    const marker = done ? '' : (hasDraft ? ' <span style="color:#e3b341">●draft</span>' : '');
+    return `<li class="${cls}" onclick="jump(${i})">#${i+1}${marker}</li>`;
+  }).join('');
+  const doneCount = Object.values(state).filter(Boolean).length;
+  document.getElementById('progress-text').innerText = `${doneCount} / 200 labeled (reviewed & saved by you)`;
+  document.getElementById('progress-bar').style.width = (100*doneCount/200) + '%';
+}
+
+function jump(i) { cur = i; render(); }
+function go(delta) { cur = Math.max(0, Math.min(DATA.candidates.length-1, cur+delta)); render(); }
+
+function toggleRaw() {
+  const b = document.getElementById('raw-box');
+  b.style.display = b.style.display === 'block' ? 'none' : 'block';
+}
+function toggleHint() {
+  const b = document.getElementById('hint-box');
+  b.style.display = b.style.display === 'block' ? 'none' : 'block';
+}
+
+let curEscalation = null;
+let curDifficulty = null;
+let curIntent = null;
+
+function render() {
+  const c = DATA.candidates[cur];
+  document.getElementById('cur-num').innerText = cur+1;
+  document.getElementById('meta-line').innerText =
+    `pair_id: ${c.pair_id}  |  thread_id: ${c.thread_id}  |  customer_tweet_id: ${c.customer_tweet_id}`;
+  document.getElementById('stratum-tag').innerText = 'selected as: ' + c.selection_stratum + ' (' + c.selection_reason + ')';
+  document.getElementById('turn-tag').innerText = c.is_first_turn ? 'first turn' : 'later turn';
+  document.getElementById('customer-text').innerText = c.customer_text_clean;
+  document.getElementById('raw-box').innerText = c.customer_text_raw;
+  document.getElementById('raw-box').style.display = 'none';
+  document.getElementById('hint-box').innerText =
+    'proxy_intent_hint (keyword heuristic used only to build the candidate pool, NOT a model prediction): ' + c.proxy_intent_hint
+    + '\n\nhistorical AA reply (for context only — not necessarily correct or ideal, do not treat as ground truth): ' + c.aa_text_clean_for_reference;
+  document.getElementById('hint-box').style.display = 'none';
+
+  const ctxCard = document.getElementById('context-card');
+  if (c.thread_context && c.thread_context.length > 0) {
+    ctxCard.style.display = 'block';
+    document.getElementById('context-turns').innerHTML = c.thread_context.map(t => `
+      <div class="context-turn"><span class="who">Customer:</span> ${escapeHtml(t.customer_text_clean)}</div>
+      <div class="context-turn"><span class="who">AmericanAir (historical reply, reference only):</span> ${escapeHtml(t.aa_text_clean)}</div>
+    `).join('');
+  } else {
+    ctxCard.style.display = 'none';
+  }
+
+  // intent buttons
+  const intentNames = DATA.taxonomy.map(t => t.name);
+  const confirmed = state[c.pair_id];               // set only once the human has saved
+  const draft = DATA.drafts ? DATA.drafts[c.pair_id] : null;  // AI-drafted, unreviewed starting point
+  const existing = confirmed || draft;               // what we pre-fill the form with
+
+  const bannerSlot = document.getElementById('draft-banner-slot');
+  if (confirmed) {
+    bannerSlot.innerHTML = '<div class="confirmed-banner">✓ You already reviewed and saved this example.</div>';
+  } else if (draft) {
+    bannerSlot.innerHTML = '<div class="draft-banner">⚠ DRAFT — AI-generated, NOT yet reviewed by you. ' +
+      'Read the example yourself and correct anything you disagree with before clicking Save &amp; Next. ' +
+      'Clicking Save is what turns this into your real label.</div>';
+  } else {
+    bannerSlot.innerHTML = '';
+  }
+
+  curIntent = existing ? existing.gold_intent : null;
+  document.getElementById('intent-buttons').innerHTML = intentNames.map(n =>
+    `<button data-v="${n}" style="flex:0 0 48%; margin-bottom:6px; font-size:11px;" class="${curIntent===n?'sel':''}" onclick="setIntent('${n}')">${n}</button>`
+  ).join('');
+
+  document.getElementById('intent-note').value = existing ? (existing.gold_intent_confidence_note || '') : '';
+  document.getElementById('gold-action').value = existing ? (existing.gold_action || '') : '';
+  document.getElementById('notes').value = existing ? (existing.notes || '') : '';
+  document.getElementById('esc-reason').value = existing ? (existing.gold_escalation_reason || '') : '';
+
+  curEscalation = existing ? existing.gold_escalation : null;
+  updateEscalationButtons();
+  curDifficulty = existing ? existing.difficulty : null;
+  updateDifficultyButtons();
+
+  renderSidebar();
+}
+
+function escapeHtml(s) { const d = document.createElement('div'); d.innerText = s; return d.innerHTML; }
+
+function setIntent(n) {
+  curIntent = n;
+  document.querySelectorAll('#intent-buttons button').forEach(b => b.classList.toggle('sel', b.dataset.v === n));
+}
+function setEscalation(v) { curEscalation = v; updateEscalationButtons(); }
+function updateEscalationButtons() {
+  const yes = document.getElementById('esc-yes'), no = document.getElementById('esc-no');
+  yes.classList.toggle('escalate-sel', curEscalation === true);
+  no.classList.toggle('sel-no', curEscalation === false);
+  document.getElementById('esc-reason-wrap').style.display = curEscalation === true ? 'block' : 'none';
+}
+function setDifficulty(v) {
+  curDifficulty = v;
+  document.querySelectorAll('.radio-row button[data-v]').forEach(b => {
+    if (['easy','medium','hard'].includes(b.dataset.v)) b.classList.toggle('sel', b.dataset.v === v);
+  });
+}
+function updateDifficultyButtons() {
+  document.querySelectorAll('.radio-row button[data-v]').forEach(b => {
+    if (['easy','medium','hard'].includes(b.dataset.v)) b.classList.toggle('sel', b.dataset.v === curDifficulty);
+  });
+}
+
+async function saveAndNext() {
+  const c = DATA.candidates[cur];
+  if (!curIntent) { alert('Please select a gold_intent before saving.'); return; }
+  if (!document.getElementById('gold-action').value.trim()) { alert('gold_action is required — please describe what the agent should do.'); return; }
+  if (curEscalation === null) { alert('Please choose ESCALATE or AUTO_HANDLE.'); return; }
+  if (curEscalation === true && !document.getElementById('esc-reason').value.trim()) {
+    alert('gold_escalation_reason is required when escalating.'); return;
+  }
+  if (!curDifficulty) { alert('Please select a difficulty.'); return; }
+
+  const label = {
+    pair_id: c.pair_id,
+    thread_id: c.thread_id,
+    customer_text_clean: c.customer_text_clean,
+    customer_text_raw: c.customer_text_raw,
+    thread_context: c.thread_context,
+    gold_intent: curIntent,
+    gold_intent_confidence_note: document.getElementById('intent-note').value,
+    gold_action: document.getElementById('gold-action').value,
+    gold_escalation: curEscalation,
+    gold_escalation_reason: document.getElementById('esc-reason').value,
+    difficulty: curDifficulty,
+    notes: document.getElementById('notes').value,
+  };
+  state[c.pair_id] = label;
+  document.getElementById('save-status').innerText = 'saving...';
+  await fetch('/api/save', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({pair_id: c.pair_id, label})
+  });
+  document.getElementById('save-status').innerText = 'saved ✓';
+  setTimeout(() => document.getElementById('save-status').innerText = '', 1500);
+
+  if (cur < DATA.candidates.length - 1) { cur += 1; render(); }
+  else { renderSidebar(); alert('All 200 examples labeled! You can review any example from the left sidebar.'); }
+}
+
+load();
+</script>
+</body>
+</html>

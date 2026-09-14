@@ -1,0 +1,422 @@
+{
+  "aa_463639_463638": {
+    "relevance": 2,
+    "groundedness": 3,
+    "actionability": 4,
+    "tone": 5,
+    "unsupported_claim": "YES"
+  },
+  "aa_597466_597468": {
+    "relevance": 1,
+    "groundedness": 4,
+    "actionability": 5,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_2909966_2909965": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 5,
+    "tone": 4,
+    "unsupported_claim": "NO"
+  },
+  "aa_2877487_2877488": {
+    "relevance": 0,
+    "groundedness": 0,
+    "actionability": 0,
+    "tone": 0,
+    "unsupported_claim": ""
+  },
+  "aa_2919505_2919499": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 3,
+    "tone": 2,
+    "unsupported_claim": "YES"
+  },
+  "aa_1050207_1050208": {
+    "relevance": 4,
+    "groundedness": 4,
+    "actionability": 5,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_2942881_2942880": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 4,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_94220_94219": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 4,
+    "tone": 5,
+    "unsupported_claim": "YES"
+  },
+  "aa_2489843_2489844": {
+    "relevance": 5,
+    "groundedness": 4,
+    "actionability": 5,
+    "tone": 5,
+    "unsupported_claim": "YES"
+  },
+  "aa_574310_574309": {
+    "relevance": 5,
+    "groundedness": 4,
+    "actionability": 4,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_515544_515543": {
+    "relevance": 4,
+    "groundedness": 4,
+    "actionability": 3,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_2964807_2964806": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 4,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_2934897_2934896": {
+    "relevance": 4,
+    "groundedness": 4,
+    "actionability": 5,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_453588_453587": {
+    "relevance": 5,
+    "groundedness": 3,
+    "actionability": 3,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_2906063_2906061": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 4,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_3613_3612": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 4,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_2964822_2964820": {
+    "relevance": 4,
+    "groundedness": 4,
+    "actionability": 3,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_2859266_2859265": {
+    "relevance": 4,
+    "groundedness": 4,
+    "actionability": 5,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_1272574_1272572": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 4,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_2154286_2154285": {
+    "relevance": 0,
+    "groundedness": 0,
+    "actionability": 0,
+    "tone": 0,
+    "unsupported_claim": ""
+  },
+  "aa_2871238_2871240": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 4,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_2965964_2965963": {
+    "relevance": 4,
+    "groundedness": 4,
+    "actionability": 5,
+    "tone": 5,
+    "unsupported_claim": "YES"
+  },
+  "aa_945999_946010": {
+    "relevance": 5,
+    "groundedness": 3,
+    "actionability": 4,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_2814126_2814125": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 4,
+    "tone": 5,
+    "unsupported_claim": "YES"
+  },
+  "aa_2429167_2429169": {
+    "relevance": 4,
+    "groundedness": 4,
+    "actionability": 3,
+    "tone": 2,
+    "unsupported_claim": "NO"
+  },
+  "aa_2943933_2943932": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 3,
+    "tone": 2,
+    "unsupported_claim": "YES"
+  },
+  "aa_551412_551414": {
+    "relevance": 3,
+    "groundedness": 4,
+    "actionability": 2,
+    "tone": 1,
+    "unsupported_claim": "NO"
+  },
+  "aa_527222_527220": {
+    "relevance": 3,
+    "groundedness": 4,
+    "actionability": 2,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_2925944_2925942": {
+    "relevance": 5,
+    "groundedness": 3,
+    "actionability": 2,
+    "tone": 2,
+    "unsupported_claim": "YES"
+  },
+  "aa_586454_586451": {
+    "relevance": 3,
+    "groundedness": 2,
+    "actionability": 2,
+    "tone": 1,
+    "unsupported_claim": "YES"
+  },
+  "aa_1778799_1778795": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 5,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_86581_86580": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 3,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_515535_515533": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 4,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_2664141_2664140": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 3,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_552814_552812": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 3,
+    "tone": 3,
+    "unsupported_claim": "NO"
+  },
+  "aa_2871236_2871235": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 4,
+    "tone": 5,
+    "unsupported_claim": "YES"
+  },
+  "aa_2956513_2956512": {
+    "relevance": 5,
+    "groundedness": 3,
+    "actionability": 2,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_1426578_1426577": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 3,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_520920_520925": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 3,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_2960789_2960788": {
+    "relevance": 5,
+    "groundedness": 3,
+    "actionability": 5,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_492598_492597": {
+    "relevance": 5,
+    "groundedness": 3,
+    "actionability": 4,
+    "tone": 3,
+    "unsupported_claim": "NO"
+  },
+  "aa_516858_516857": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 3,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_467632_467631": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 4,
+    "tone": 5,
+    "unsupported_claim": "NO"
+  },
+  "aa_2919532_2919534": {
+    "relevance": 5,
+    "groundedness": 4,
+    "actionability": 3,
+    "tone": 3,
+    "unsupported_claim": "NO"
+  },
+  "aa_2344850_2344852": {
+    "relevance": 2,
+    "groundedness": 1,
+    "actionability": 3,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_2969410_2969409": {
+    "relevance": 5,
+    "groundedness": 4,
+    "actionability": 5,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_2220421_2220419": {
+    "relevance": 4,
+    "groundedness": 4,
+    "actionability": 3,
+    "tone": 2,
+    "unsupported_claim": "YES"
+  },
+  "aa_2911107_2911106": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 2,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_1667119_1667117": {
+    "relevance": 4,
+    "groundedness": 3,
+    "actionability": 5,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_172615_172613": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 4,
+    "tone": 5,
+    "unsupported_claim": "YES"
+  },
+  "aa_97814_97816": {
+    "relevance": 5,
+    "groundedness": 3,
+    "actionability": 5,
+    "tone": 5,
+    "unsupported_claim": "YES"
+  },
+  "aa_1868723_1868722": {
+    "relevance": 5,
+    "groundedness": 5,
+    "actionability": 3,
+    "tone": 5,
+    "unsupported_claim": "YES"
+  },
+  "aa_512006_512005": {
+    "relevance": 5,
+    "groundedness": 5,
+    "actionability": 3,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_540491_540489": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 3,
+    "tone": 4,
+    "unsupported_claim": "YES"
+  },
+  "aa_2054349_2054348": {
+    "relevance": 4,
+    "groundedness": 4,
+    "actionability": 5,
+    "tone": 4,
+    "unsupported_claim": "NO"
+  },
+  "aa_562495_562494": {
+    "relevance": 5,
+    "groundedness": 3,
+    "actionability": 3,
+    "tone": 4,
+    "unsupported_claim": "NO"
+  },
+  "aa_2970394_2970392": {
+    "relevance": 4,
+    "groundedness": 5,
+    "actionability": 5,
+    "tone": 5,
+    "unsupported_claim": "YES"
+  },
+  "aa_499468_499466": {
+    "relevance": 5,
+    "groundedness": 5,
+    "actionability": 3,
+    "tone": 3,
+    "unsupported_claim": "YES"
+  },
+  "aa_501089_501088": {
+    "relevance": 5,
+    "groundedness": 3,
+    "actionability": 3,
+    "tone": 3,
+    "unsupported_claim": "NO"
+  },
+  "aa_599539_599538": {
+    "relevance": 5,
+    "groundedness": 5,
+    "actionability": 5,
+    "tone": 3,
+    "unsupported_claim": "NO"
+  }
+}
