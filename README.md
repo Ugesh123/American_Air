@@ -3,7 +3,8 @@
 
 
 An evaluated AI support agent built on historical AmericanAir customer-service conversations. The system classifies customer intent, retrieves relevant historical resolutions, drafts grounded replies, and decides whether to auto-handle or escalate.
-![Uploading Screenshot 2026-09-14 174214.png…]()
+<img width="2570" height="1624" alt="Screenshot 2026-09-14 174214" src="https://github.com/user-attachments/assets/182be818-af78-4976-90c8-58295ef52399" />
+
 
 See `REPORT.md` for the evaluation and findings, `DECISIONS.md` for engineering decisions, and `GOLDEN_SET.md` for the golden-set methodology.
 
