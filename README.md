@@ -1,6 +1,9 @@
 # AmericanAir AI Support Agent — Hiver SDE Take-Home
+<img width="2582" height="1604" alt="Screenshot 2026-09-14 174222" src="https://github.com/user-attachments/assets/16a03ff7-6b4e-4e2a-803a-323e13fcdcaf" />
+
 
 An evaluated AI support agent built on historical AmericanAir customer-service conversations. The system classifies customer intent, retrieves relevant historical resolutions, drafts grounded replies, and decides whether to auto-handle or escalate.
+![Uploading Screenshot 2026-09-14 174214.png…]()
 
 See `REPORT.md` for the evaluation and findings, `DECISIONS.md` for engineering decisions, and `GOLDEN_SET.md` for the golden-set methodology.
 
