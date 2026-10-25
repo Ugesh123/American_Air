@@ -5,7 +5,7 @@
 Given real customer↔brand Twitter support conversations, build an agent that
 classifies a customer's intent, drafts a reply grounded in how the brand has
 historically resolved similar issues, and decides whether to auto-handle or
-escalate to a human — with a stated reason. The brief is explicit that the
+escalate to a human — with a stated reason. The guiding principle is that the
 **proof matters more than the system**: a simple architecture with rigorous,
 honest evaluation beats a complex one with vague claims.
 
@@ -24,13 +24,13 @@ against real human labels, never estimated.
 ## 3. What was intentionally not built
 
 - No fine-tuned/transformer classifier — TF-IDF + linear models, evaluated
-  well, per the brief's explicit preference for simple + well-proven.
+  well; simple and well-proven first.
 - No multi-agent framework, LangChain/LangGraph, Docker/K8s, or cloud infra.
 - No multi-turn dialogue manager — thread context is read-only for grounding,
   not a stateful conversation manager.
 - No live ticketing/CRM integration.
 - No full-dataset processing — a documented, reproducible subsample (36,357
-  cleaned pairs from ~2.8M raw rows) per the brief's explicit instruction.
+  cleaned pairs from ~2.8M raw rows) for one brand.
 - No multi-label intent classification (see DECISIONS.md).
 - No LLM-decided escalation — a deterministic, explainable policy instead.
 
@@ -46,10 +46,9 @@ Customer message
   -> Structured output: {intent, intent_confidence, reply, decision, reason, evidence}
 ```
 
-Retrieval is pluggable: a `TfidfRetriever` (used for every number below) and a
-documented, written-but-unexecuted `EmbeddingRetriever` (sentence-transformers
-+ FAISS) share one interface — see DECISIONS.md for why this sandbox couldn't
-run the latter.
+Retrieval is pluggable: a `TfidfRetriever` (used for every number below) and an
+optional `EmbeddingRetriever` (sentence-transformers + FAISS, not yet
+benchmarked) share one interface — see DECISIONS.md.
 
 ## 5. Dataset and sampling
 
@@ -90,7 +89,7 @@ manually reviewed and confirmed via a local labeling tool (`tools/label_tool.py`
 |---|---|---|
 | Majority-class (trivial) | 0.120 | 0.020 |
 | TF-IDF unigrams + LogReg (simple ML baseline) | 0.535 | 0.500 |
-| **Final: TF-IDF uni+bi + calibrated LinearSVC** | **0.660** | **0.647** |
+| **Final: TF-IDF uni+bi + calibrated LinearSVC** | **0.665** | **0.650** |
 
 Per-class detail, confusion matrices: `results/intent_classifier_metrics.json`.
 Notable weak spot: **SAFETY_SECURITY recall is only 0.23** even in the final
@@ -103,10 +102,10 @@ hidden by the headline accuracy number.
 |---|---|
 | Gold escalation rate | 30.0% (60/200) |
 | Predicted escalation rate | 14.5% (29/200) |
-| ESCALATE precision / recall / F1 | 0.517 / 0.250 / 0.337 |
-| AUTO_HANDLE precision / recall / F1 | 0.737 / 0.900 / 0.810 |
-| SAFETY_SECURITY escalation recall | 0.462 (6/13) |
-| **Dangerous failure rate** (gold says escalate, system auto-handled) | **22.5% (45/200)** |
+| ESCALATE precision / recall / F1 | 0.552 / 0.267 / 0.360 |
+| AUTO_HANDLE precision / recall / F1 | 0.743 / 0.907 / 0.817 |
+| SAFETY_SECURITY escalation recall | 0.538 (7/13) |
+| **Dangerous failure rate** (gold says escalate, system auto-handled) | **22.0% (44/200)** |
 
 This is the single most important number in this report and it is not good.
 See §10.
@@ -116,16 +115,26 @@ See §10.
 | Metric | Value |
 |---|---|
 | Queries with zero evidence above similarity threshold | 0/200 |
-| Top-1 similarity (median) | 0.333 |
-| Proxy topical-match rate | 28.0% (bounded by weak-labeler accuracy, not a clean metric) |
+| Top-1 similarity (median) | 0.335 |
+| Proxy topical-match rate | 29.5% (bounded by weak-labeler accuracy, not a clean metric) |
 
-### Headline metric (partial — see §10 for why)
+### Headline metric: Verified Auto-Resolution Rate
 
-**"Auto-Handle Candidates"** (intent correct AND system chose AUTO_HANDLE):
-**120/200 = 60.0%**. This is a **ceiling**, not the true Verified
-Auto-Resolution Rate — the full definition additionally requires reply quality
-+ groundedness + no unsupported claims, none of which are computable without
-running LLM generation and judging (§11).
+An example counts only if (1) the intent is correct, (2) the system chose
+AUTO_HANDLE, (3) the LLM judge scored the reply at least 3/5 on relevance,
+groundedness, actionability and tone, and (4) the reply has no unsupported
+claims.
+
+| Stage | Count |
+|---|---|
+| Intent correct AND AUTO_HANDLE ("Auto-Handle Candidates", the ceiling) | 120/200 = 60.0% |
+| **...and the reply passes quality + has no unsupported claims** | **58/200 = 29.0%** |
+
+Reply quality across all 200 judged replies (mean, 1-5): relevance 3.94,
+groundedness 3.83, **actionability 2.88**, tone 4.17. 34/200 replies (17%)
+contained at least one unsupported claim. Actionability is the weakest
+dimension: replies are polite and on-topic but often don't tell the customer
+what to do next.
 
 ## 9. Failure analysis — top 5 real failure modes
 
@@ -175,8 +184,8 @@ report. Improvement: sarcasm/tone cues (exclamation patterns, "another,"
 confidence when COMPLAINT_GENERAL-style intensifiers co-occur.
 
 **5. Escalation thresholds were deliberately not tuned to the golden set,
-producing an honest but weak 25% escalation recall.** This isn't a single
-example but a systemic finding: 45/200 dangerous failures, cutting across
+producing an honest but weak 26.7% escalation recall.** This isn't a single
+example but a systemic finding: 44/200 dangerous failures, cutting across
 nearly every intent class, share the same root cause — the intent-confidence
 and retrieval-confidence thresholds (0.55/0.70/0.20) were set from reasoning
 about the architecture, not fit to this data (see DECISIONS.md for why). The
@@ -188,13 +197,16 @@ rather than confidence thresholds on a model trained for a different task.
 
 ## 10. "What is misleading about my headline number?"
 
-The 60.0% "Auto-Handle Candidates" figure is genuinely misleading if read
-alone, for several real, disclosed reasons:
+The 29.0% Verified Auto-Resolution Rate is still optimistic if read alone,
+for several real, disclosed reasons:
 
-- **It's a ceiling, not the real metric.** The true Verified Auto-Resolution
-  Rate also requires reply quality/groundedness checks that haven't run (§11).
-  60.0% will only go down once those checks apply, never up.
-- **The escalation policy it depends on has only 25.0% recall and a 22.5%
+- **The ceiling halves once replies are checked.** 60.0% of cases look
+  automatable on intent and decision alone, but only 29.0% survive the reply
+  quality check. Quoting the 60% would double-count the opportunity.
+- **The quality check itself is an LLM judge that agrees poorly with humans**
+  (exact agreement 17-33% per dimension; Cohen's kappa -0.10 on unsupported
+  claims across 60 hand-scored replies). The 29% depends on that judge.
+- **The escalation policy it depends on has only 26.7% recall and a 22.0%
   dangerous-failure rate.** A headline number built on top of a policy that
   misses 3 out of 4 cases that should escalate is not describing a
   trustworthy system, even if the auto-handled subset looks fine in isolation.
@@ -220,24 +232,19 @@ alone, for several real, disclosed reasons:
 
 ## 11. Limitations
 
-- Reply generation and the LLM judge are fully coded (`src/generation/`,
-  `evaluation/judge/`) but have **never been executed** in this development
-  environment — no internet/API access here. See README.md for exact commands
-  to run them yourself. No generated reply or judge score anywhere in this
-  repo is fabricated; where they don't exist, the repo says so.
-- The human-vs-judge agreement study (`tools/judge_agreement_tool.py`,
-  `evaluation/metrics/judge_agreement.py`) is built but has no results for the
-  same reason.
-- Retrieval uses TF-IDF, not the sentence-transformers/FAISS approach the
-  assignment suggests, for the same internet-access reason (an equivalent,
-  interface-compatible `EmbeddingRetriever` class exists, untested).
+- The LLM judge is not reliable enough to be the final word: the 60-reply
+  human study shows weak agreement, so judge-based numbers are a rough signal.
+- The human scores in the agreement study come from one reviewer; a second
+  reviewer would show how much humans themselves disagree.
+- Retrieval uses TF-IDF only; the interface-compatible `EmbeddingRetriever`
+  is not benchmarked yet.
 - 2 of 200 golden-set records are missing `gold_action` (disclosed, not
   patched — see DECISIONS.md).
 
 ## 12. What I would do with one more week
 
-1. Run generation + judging + the human-agreement study for real (the single
-   biggest gap — everything in §8 stops at intent/retrieval/escalation).
+1. Calibrate the judge before trusting it: tighten the rubric with examples,
+   re-score the same 60 replies, and only use it once agreement improves.
 2. Build a dedicated escalation-risk model trained directly on
    `gold_escalation` labels (once the golden set or a larger hand-labeled
    sample supports it) rather than reusing intent-classifier confidence.
@@ -249,3 +256,5 @@ alone, for several real, disclosed reasons:
 5. Swap in the real embedding-based retriever and re-run every metric to see
    how much of the current ceiling was a TF-IDF limitation vs. a genuine data
    limitation.
+6. Improve reply actionability (the weakest judged dimension, 2.88/5) by
+   prompting for one concrete next step grounded in the retrieved evidence.

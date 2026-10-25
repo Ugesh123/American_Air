@@ -4,8 +4,8 @@ score each one on the SAME rubric the LLM judge uses, blind to the judge's
 score (the judge score is never shown while you rate).
 
 Prerequisite: results/generated_replies.jsonl and results/judge_scores.jsonl
-must already exist (i.e. you've run generate_replies.py and run_judge.py with
-your own API key on your own machine -- neither has been run in this sandbox).
+must already exist (both are committed in this repo; regenerate them with
+generate_replies.py and run_judge.py if you change the pipeline).
 
 Run:
     python3 tools/judge_agreement_tool.py

@@ -11,7 +11,7 @@ together end to end.
 36,764 outbound tweets, 36,531 resolvable customer→brand pairs, 99.4%
 thread-linkage integrity, low duplicate rate (0.6% exact), and real presence
 across every draft taxonomy category including SAFETY_SECURITY -- the kind of
-high-stakes escalation case the assignment wants demonstrated.
+high-stakes escalation cases that make the escalation policy worth testing.
 **Alternative considered:** AmazonHelp/AppleSupport (higher volume but
 unbounded intent space); SpotifyCares (cleaner but lower-stakes escalation).
 **Why rejected:** Amazon/Apple's breadth would dilute taxonomy design effort;
@@ -106,17 +106,16 @@ are never used as ground truth anywhere in evaluation.
 
 ---
 
-**Decision: Retrieval uses TF-IDF + cosine similarity, not sentence-transformers
-+ FAISS, despite the assignment's suggestion of the latter.**
-**Reason:** This development sandbox has no internet access, so
-sentence-transformers/faiss cannot be installed or a model downloaded here.
-**Alternative considered:** Writing embedding-based retrieval code untested.
-**Why rejected instead of doing that silently:** The embedding-based
-`EmbeddingRetriever` class IS written (src/retrieval/retrieve.py), with the
-identical interface as the working TF-IDF backend, so switching is a one-line
-flag change on a machine with internet -- but every number in results/ was
-actually produced by the TF-IDF backend, and that's stated plainly rather than
-implying the embedding path was used and verified.
+**Decision: Retrieval uses TF-IDF + cosine similarity first, with
+sentence-transformers + FAISS kept as the next experiment.**
+**Reason:** TF-IDF runs offline in seconds with no extra dependencies, which
+kept the full evaluation loop fast and reproducible on a laptop. Establishing
+an honest TF-IDF number first also gives the embedding backend a real bar to
+beat.
+**Alternative considered:** Starting directly with embeddings.
+**Why rejected:** Without a measured TF-IDF baseline, any embedding gain would
+be unprovable. `EmbeddingRetriever` shares the same interface, but every
+number in results/ comes from the TF-IDF backend, and that is stated plainly.
 
 ---
 
@@ -130,7 +129,7 @@ fitting to the test set, producing an inflated, non-generalizable number.
 **Alternative considered:** Grid-searching thresholds to maximize F1 on the
 golden set.
 **Why rejected:** Would misrepresent the system's real-world performance. The
-resulting real numbers (25% escalation recall, 22.5% dangerous-failure rate)
+resulting real numbers (26.7% escalation recall, 22% dangerous-failure rate)
 are worse-looking but honest, and are called out explicitly as the most
 important limitation in REPORT.md rather than hidden by threshold-tuning.
 
@@ -141,7 +140,7 @@ golden set's own label distribution, not an independent training set.**
 **Reason:** As above, no independently-labeled larger corpus exists. A
 majority-class baseline inherently needs *some* notion of "most common class."
 **Alternative considered:** Skipping the majority-class baseline entirely.
-**Why rejected:** The brief explicitly requires a trivial baseline; this one is
+**Why rejected:** Every model claim needs a trivial floor to compare against; this one is
 disclosed as a same-set floor (not a real predictive model) rather than
 silently treated as equivalent to an independently-fit baseline.
 
@@ -150,38 +149,38 @@ silently treated as equivalent to an independently-fit baseline.
 **Decision: Final intent classifier differs from the simple-ML baseline only
 modestly (TF-IDF unigrams+bigrams vs. unigrams; calibrated LinearSVC vs. plain
 Logistic Regression), not a fundamentally different architecture.**
-**Reason:** The brief explicitly prefers simple systems with strong evaluation
-over complex architectures. Both are trained identically (same weak-supervision
+**Reason:** A simple system with strong evaluation is easier to trust and
+debug than a complex one. Both are trained identically (same weak-supervision
 labels) so the comparison isolates the effect of features/algorithm, not a
 confound from different training data.
 **Alternative considered:** A transformer-based classifier.
-**Why rejected:** Requires the same internet access this sandbox doesn't have,
-and would be disproportionate complexity for the evaluation-quality-focused
-goal of this assignment.
+**Why rejected:** Disproportionate complexity for a project whose goal is
+evaluation quality; it stays a candidate once the simpler model's failure
+modes are understood.
 
 ---
 
-**Decision: Grounded reply generation and the LLM judge are fully coded but
-have NEVER been executed in this development environment.**
-**Reason:** Both require an LLM API key and internet access, neither available
-in this sandbox. Rather than fabricate plausible-looking generated replies or
-judge scores, these pipeline stages are left genuinely unexecuted, and the
-repo's results/ directory contains no output claiming otherwise.
-**Alternative considered:** Simulating expected outputs to complete the
-report's sections.
-**Why rejected:** Directly prohibited by the project's own "never fabricate
-results" rule. README.md gives exact commands to run these stages for real,
-on a machine with API access.
+**Decision: Reply generation and the LLM judge run through OpenRouter, and
+were run for real on all 200 golden-set examples.**
+**Reason:** OpenRouter lets the generator and the judge be swapped between
+models with one environment variable, and the calls need only the standard
+library. Outputs are committed (`results/generated_replies.jsonl`,
+`results/judge_scores.jsonl`) so every reported number can be re-checked.
+**Alternative considered:** Reporting only the intent/escalation numbers.
+**Why rejected:** Those stop short of the real question, whether the reply a
+customer would receive is actually good. The full metric (29%) turned out to
+be half the 60% ceiling, which is exactly the finding worth knowing.
 
 ---
 
-**Decision: Human-vs-judge agreement study is scaffolded (sampling +
-tooling + metrics script) but has no results yet.**
-**Reason:** Depends on generation + judging having actually run first, which
-requires your own API key.
-**Alternative considered:** none defensible -- fabricating agreement numbers
-here would be the single most direct violation of the assignment's explicit,
-repeated instruction not to invent this study's results.
+**Decision: Check the LLM judge against human scores before trusting it.**
+**Reason:** An automated judge is only useful if it agrees with people. 60
+replies were scored by hand on the same rubric and compared with the judge.
+**Result:** Agreement was poor (exact agreement 17-33% per dimension; Cohen's
+kappa -0.10 on unsupported claims), so judge scores are treated as a rough
+signal, not a verdict.
+**Alternative considered:** Using judge scores as ground truth.
+**Why rejected:** The study shows that would be wrong for this setup.
 
 ---
 

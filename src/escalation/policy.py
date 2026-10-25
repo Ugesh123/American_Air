@@ -1,6 +1,6 @@
 """
-Deterministic AUTO_HANDLE vs ESCALATE policy. Per the assignment brief, this is
-explicitly NOT delegated to an LLM -- every decision must be explainable from a
+Deterministic AUTO_HANDLE vs ESCALATE policy. By design, this is
+NOT delegated to an LLM -- every decision must be explainable from a
 small set of measurable signals, each with a human-readable reason string.
 
 Signals used:
@@ -18,8 +18,8 @@ Signals used:
     under).
 
 Recall is deliberately prioritized over precision for SAFETY_SECURITY and the
-escalation-edge keyword override, per the brief ("prioritize high recall for
-genuinely human-required cases") -- false escalations cost an agent's time;
+escalation-edge keyword override (high recall on genuinely human-required
+cases matters most) -- false escalations cost an agent's time;
 false auto-handles of a safety issue are the actually dangerous failure mode.
 """
 import re

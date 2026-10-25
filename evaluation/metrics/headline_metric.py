@@ -1,19 +1,14 @@
 """
 Headline metric: Verified Auto-Resolution Rate.
 
-Full definition (per the assignment brief): an example counts as verified
+Definition: an example counts as verified
 auto-resolution only if (1) intent is correct, (2) system chose AUTO_HANDLE,
 (3) the generated reply passes a quality threshold, (4) the reply is grounded,
 and (5) no unsupported claims exist.
 
-THIS SCRIPT COMPUTES ONLY (1) AND (2) -- called "Auto-Handle Candidates" here,
-not the full metric -- because (3)-(5) require a generated reply and judge
-score, neither of which exist without an LLM API key (see
-src/generation/generate_replies.py, evaluation/judge/run_judge.py). This is
-stated as a ceiling, not the real number, in REPORT.md.
-
-If results/judge_scores.jsonl exists (i.e. you've run generation+judging),
-this script automatically computes the FULL metric instead.
+If results/judge_scores.jsonl exists (it does in this repo), the script
+computes the FULL metric. Without it, it falls back to (1)+(2) only, reported
+as "Auto-Handle Candidates", which is a ceiling and not the real number.
 
 Usage: python3 evaluation/metrics/headline_metric.py
 """

@@ -1,11 +1,13 @@
 # AI Customer Support Agent: Automate the Routine, Escalate the Risky
 
+![tests](https://github.com/Ugesh123/American_Air/actions/workflows/tests.yml/badge.svg)
+
 **An AI support agent that knows when to answer and when to hand over to a human.**
 Built on **36,357 real AmericanAir customer-support conversations**, it detects what the customer needs, finds how similar issues were resolved before, drafts a grounded reply, and decides whether to **auto-handle or escalate**, always with a stated reason.
 
-**At a glance:** 11 intents · 200-case human-labeled golden set · 0.660 intent accuracy (vs 0.535 baseline) · up to 60% auto-handle candidates · 200 LLM replies judged · 19 tests
+**At a glance:** 11 intents · 200-case human-labeled golden set · 0.665 intent accuracy (vs 0.535 baseline) · **29% verified auto-resolution** (60% before checking reply quality) · 200 LLM replies judged · 60-reply human-vs-judge study · 19 tests in CI
 
-> Originally built as a take-home assignment for Hiver, where the brief was explicit: *rigorous, honest evaluation matters more than a complex system.*
+> Started from a take-home brief by Hiver whose core idea shaped the whole project: *rigorous, honest evaluation matters more than a complex system.*
 
 ---
 
@@ -26,7 +28,7 @@ Built on **36,357 real AmericanAir customer-support conversations**, it detects 
 |---|---|
 | **Pain points** | Support teams face huge volume, but a wrong automated reply to a safety, legal or account-security message is far worse than a slow one. |
 | **Key takeaways** | *"High accuracy"* alone is the wrong goal. A support agent that is **confidently wrong** is worse than one that escalates more and automates less. |
-| **Benchmark view** | Measured against simple baselines: a majority-class guess scores **0.120** accuracy and a TF-IDF + logistic regression model **0.535**. The final classifier reaches **0.660** (macro F1 0.647). |
+| **Benchmark view** | Measured against simple baselines: a majority-class guess scores **0.120** accuracy and a TF-IDF + logistic regression model **0.535**. The final classifier reaches **0.665** (macro F1 0.650). |
 | **Trade-off** | Automate more vs. stay safe. The policy deliberately favours **catching risky cases** (escalation recall) over automation rate, and escalation is decided by **explainable rules**, not by an LLM. |
 
 ### 3️⃣ Strategy
@@ -42,9 +44,9 @@ Built on **36,357 real AmericanAir customer-support conversations**, it detects 
 
 | | |
 |---|---|
-| **Business impact** | Up to **60%** of messages (120 of 200) are **auto-handle candidates**: the intent is correct *and* the system chose to auto-handle. This is a ceiling; the true auto-resolution rate also depends on reply quality. |
-| **Quality check** | **200 generated replies** were scored by an LLM judge on relevance, groundedness, actionability and tone, and a **60-case human-vs-judge study** checked whether the judge can be trusted. |
-| **Risk & mitigation** | Escalation recall is only **25%** today, and about **22%** of cases are "dangerous failures" (should have escalated but were auto-handled). The judge also agrees poorly with humans (e.g. Cohen's κ ≈ −0.10 on unsupported claims). **So this is not ready for unsupervised rollout**: the next step is a dedicated escalation-risk model and human review of judge scores. |
+| **Business impact** | **29%** of messages (58 of 200) are **verified auto-resolutions**: correct intent, auto-handled, and a reply that passes quality checks with no unsupported claims. Before checking replies, 60% looked automatable, so reply quality halves the real opportunity. |
+| **Quality check** | **200 generated replies** were scored by an LLM judge (mean out of 5: relevance 3.94, groundedness 3.83, **actionability 2.88**, tone 4.17); 17% had an unsupported claim. A **60-reply human-vs-judge study** checked whether the judge itself can be trusted. |
+| **Risk & mitigation** | Escalation recall is only **26.7%** today, and **22%** of cases are "dangerous failures" (should have escalated but were auto-handled). The judge also agrees poorly with humans (Cohen's κ ≈ −0.10 on unsupported claims). **So this is not ready for unsupervised rollout**: next come a dedicated escalation-risk model, better "next step" guidance in replies, and a calibrated judge. |
 | **Annexures** | [`REPORT.md`](REPORT.md) evaluation · [`DECISIONS.md`](DECISIONS.md) engineering decisions · [`GOLDEN_SET.md`](GOLDEN_SET.md) golden-set method · [`results/`](results/) all outputs |
 
 ---
@@ -72,13 +74,20 @@ Output ─ {intent, intent_confidence, reply, decision, reason, evidence}
 |---|---|---|
 | Majority-class baseline | 0.120 | 0.020 |
 | TF-IDF + Logistic Regression | 0.535 | 0.500 |
-| **Final: TF-IDF uni+bi + calibrated LinearSVC** | **0.660** | **0.647** |
+| **Final: TF-IDF uni+bi + calibrated LinearSVC** | **0.665** | **0.650** |
 
 | Escalation metric | Value |
 |---|---|
-| ESCALATE precision / recall | 0.517 / 0.250 |
-| AUTO_HANDLE precision / recall | 0.737 / 0.900 |
-| SAFETY_SECURITY escalation recall | 0.462 (6/13) |
+| ESCALATE precision / recall | 0.552 / 0.267 |
+| AUTO_HANDLE precision / recall | 0.743 / 0.907 |
+| SAFETY_SECURITY escalation recall | 0.538 (7/13) |
+| Dangerous failures (should escalate, auto-handled) | 22.0% (44/200) |
+
+| Verified auto-resolution funnel | Count |
+|---|---|
+| Golden-set messages | 200 |
+| Intent correct and auto-handled (ceiling) | 120 (60%) |
+| ...and reply passes quality with no unsupported claims | **58 (29%)** |
 
 Full per-class metrics, confusion matrices and judge outputs are in [`results/`](results/).
 
@@ -124,9 +133,9 @@ python3 src/pipeline.py --text "my bag never arrived" --generate_reply
 ## ✅ Tests
 
 ```bash
-pytest tests/ -v
+python -m unittest discover -s tests -v
 ```
 
-**19 tests** cover the end-to-end pipeline.
+**19 tests** cover text cleaning, the escalation policy, data integrity (no thread leaks across splits, 200 labeled golden examples) and an end-to-end smoke test. They run on every push through GitHub Actions.
 
 No API keys or secrets are committed to this repository.

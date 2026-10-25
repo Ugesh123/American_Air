@@ -8,9 +8,8 @@ improvements over baselines/simple_ml_baseline.py:
      CalibratedClassifierCV gives us back well-formed probabilities for
      intent_confidence, which the escalation policy needs.
 
-This is deliberately NOT a large architectural leap over the baseline -- the
-assignment brief explicitly asks us to prefer simple systems with strong
-evaluation over complex ones. The comparison table in evaluation/metrics
+This is deliberately NOT a large architectural leap over the baseline: a
+simple system with strong evaluation is preferred over a complex one. The comparison table in evaluation/metrics
 reports honestly whether this actually beats the baseline; if it doesn't, that
 is reported as-is, not hidden.
 

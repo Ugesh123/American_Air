@@ -2,8 +2,7 @@
 Computes human-vs-LLM-judge agreement. Requires BOTH:
   - results/judge_scores.jsonl (from evaluation/judge/run_judge.py)
   - data/judge_agreement/human_judge_scores.json (from tools/judge_agreement_tool.py)
-Neither exists in this sandbox (both require your own LLM API access / your own
-scoring time), so this has never been run here. Run once both exist:
+Both are committed in this repo, so the study can be re-run directly:
 
     python3 evaluation/metrics/judge_agreement.py
 """
@@ -25,8 +24,7 @@ def main():
     if not os.path.exists(JUDGE_PATH) or not os.path.exists(HUMAN_PATH):
         raise SystemExit(
             'Missing judge_scores.jsonl and/or human_judge_scores.json -- run '
-            'evaluation/judge/run_judge.py and tools/judge_agreement_tool.py first '
-            '(both require your own LLM API access, not available in this sandbox).')
+            'evaluation/judge/run_judge.py and tools/judge_agreement_tool.py first.')
 
     judge = {r['pair_id']: r for r in (json.loads(l) for l in open(JUDGE_PATH, encoding='utf-8'))}
     human = json.load(open(HUMAN_PATH, encoding='utf-8'))

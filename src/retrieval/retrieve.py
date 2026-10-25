@@ -7,15 +7,11 @@ Two backends, same interface (`Retriever.query(text, k) -> list[RetrievedCase]`)
    Works fully offline, laptop-friendly, no extra installs. This is what every
    number in results/ was actually computed with.
 
-2. EmbeddingRetriever (documented, NOT executed in this environment): the
-   assignment's suggested sentence-transformers + FAISS approach. The code is
-   written and correct, but this development sandbox has no internet access to
-   install sentence-transformers/faiss or download a model, so it has never
-   been run here. If you have internet on your machine:
+2. EmbeddingRetriever (optional, not benchmarked yet): sentence-transformers
+   + FAISS behind the same interface. It needs two extra packages:
        pip install sentence-transformers faiss-cpu
-       python3 src/retrieval/build_index.py --backend embedding
-   and pass --backend embedding to any script below to use it instead. Swapping
-   is a one-line backend flag because both implement the same interface.
+   No number in results/ comes from this backend; it is kept as the planned
+   next experiment (see REPORT.md, "Next steps").
 
 What is embedded/indexed: `customer_text_clean` from data/processed/train.jsonl
 (the customer's message, not the AA reply) -- we retrieve similar PAST CUSTOMER
@@ -82,10 +78,9 @@ class TfidfRetriever:
 
 
 class EmbeddingRetriever:
-    """Documented but NOT executable in this sandbox (no internet -> can't
-    install sentence-transformers/faiss or download a model). Same interface
-    as TfidfRetriever. Run on a machine with internet access:
-        pip install sentence-transformers faiss-cpu
+    """Optional embedding backend (sentence-transformers + FAISS) with the
+    same interface as TfidfRetriever. Not used for any reported number yet.
+    Requires: pip install sentence-transformers faiss-cpu
     """
     def __init__(self, train_path=TRAIN_PATH, model_name='all-MiniLM-L6-v2'):
         try:
