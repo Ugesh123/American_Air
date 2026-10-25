@@ -76,8 +76,8 @@ manually reviewed and confirmed via a local labeling tool (`tools/label_tool.py`
 
 1. **Trivial (majority-class, always-AUTO_HANDLE)** - floor.
 2. **Trivial (majority-class, always-ESCALATE)** - safety-reference floor.
-3. **Simple ML (TF-IDF unigrams + Logistic Regression, weak-supervised)**  - 
-   real non-LLM baseline.
+3. **Simple ML (TF-IDF unigrams + Logistic Regression, weak-supervised)** - real non-LLM
+   baseline.
 4. **Final system (TF-IDF uni+bigrams + calibrated LinearSVC + TF-IDF
    retrieval + deterministic escalation policy)**.
 
@@ -140,7 +140,7 @@ what to do next.
 
 **1. SAFETY_SECURITY is systematically under-recognized by the classifier.**
 Example `aa_2344855_2344853`: *"Coming back was better... waited 40 minutes..."*
- -  gold SAFETY_SECURITY, predicted OTHER_UNCLEAR (confidence 0.85). 7 of 13
+- gold SAFETY_SECURITY, predicted OTHER_UNCLEAR (confidence 0.85). 7 of 13
 gold SAFETY_SECURITY examples were misclassified as OTHER_UNCLEAR. Hypothesis:
 these incidents are described in narrative, indirect language ("waited 40
 minutes," not "I was hurt") that doesn't match any keyword-derived pseudo-label
@@ -211,15 +211,15 @@ for several real, disclosed reasons:
   misses 3 out of 4 cases that should escalate is not describing a
   trustworthy system, even if the auto-handled subset looks fine in isolation.
 - **The golden set is 200 examples.** Per-class metrics for rare intents
-  (SAFETY_SECURITY n=13, ACCOUNT_WEBSITE_APP n=23) have wide uncertainty  - 
+  (SAFETY_SECURITY n=13, ACCOUNT_WEBSITE_APP n=23) have wide uncertainty;
   a couple of different examples would meaningfully move these numbers.
 - **The weak-supervision training labels bound everything downstream.** The
   intent classifier was trained on keyword-heuristic pseudo-labels, not real
-  ground truth. Its real accuracy (66.0%) is itself the ceiling for anything
+  ground truth. Its real accuracy (66.5%) is itself the ceiling for anything
   built on top of it (retrieval relevance, escalation confidence).
 - **Historical AA replies are evidence of past behavior, not correctness.**
   Nothing here validates that the 2017 AmericanAir agent replies being
-  retrieved as "grounding evidence" were actually the *right* thing to say  - 
+  retrieved as "grounding evidence" were actually the *right* thing to say,
   only that they're what was historically said.
 - **The held-out eval window (Nov 24–Dec 3, 2017) is a narrow 10-day slice**
   that includes a real, quantified event (a scheduling disruption around

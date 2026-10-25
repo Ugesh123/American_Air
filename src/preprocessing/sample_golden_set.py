@@ -1,5 +1,5 @@
 """
-Step 3: build the 200-example golden-set CANDIDATE pool (no gold labels yet)
+Build the 200-example golden-set CANDIDATE pool (labels are added later by hand)
 from data/processed/eval_pool.jsonl, per the approved sampling plan.
 
 Deterministic / reproducible: single fixed RNG seed, no external randomness.

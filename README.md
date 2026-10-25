@@ -47,7 +47,22 @@ Built on **36,357 real AmericanAir customer-support conversations**, it detects 
 | **Business impact** | **29%** of messages (58 of 200) are **verified auto-resolutions**: correct intent, auto-handled, and a reply that passes quality checks with no unsupported claims. Before checking replies, 60% looked automatable, so reply quality halves the real opportunity. |
 | **Quality check** | **200 generated replies** were scored by an LLM judge (mean out of 5: relevance 3.94, groundedness 3.83, **actionability 2.88**, tone 4.17); 17% had an unsupported claim. A **60-reply human-vs-judge study** checked whether the judge itself can be trusted. |
 | **Risk & mitigation** | Escalation recall is only **26.7%** today, and **22%** of cases are "dangerous failures" (should have escalated but were auto-handled). The judge also agrees poorly with humans (Cohen's κ ≈ −0.10 on unsupported claims). **So this is not ready for unsupervised rollout**: next come a dedicated escalation-risk model, better "next step" guidance in replies, and a calibrated judge. |
-| **Annexures** | [`REPORT.md`](REPORT.md) evaluation · [`DECISIONS.md`](DECISIONS.md) engineering decisions · [`GOLDEN_SET.md`](GOLDEN_SET.md) golden-set method · [`results/`](results/) all outputs |
+| **Annexures** | [`PRD.md`](PRD.md) product plan · [`REPORT.md`](REPORT.md) evaluation · [`DECISIONS.md`](DECISIONS.md) engineering decisions · [`GOLDEN_SET.md`](GOLDEN_SET.md) golden-set method · [`results/`](results/) all outputs |
+
+---
+
+## Product Plan
+
+The full product write-up is in [`PRD.md`](PRD.md): users, success metrics, launch bars, rollout and priorities.
+
+| | |
+|---|---|
+| **North star** | Verified auto-resolution rate: **29%** today |
+| **Guardrails** | Dangerous failures **22%** (target ≤ 2%) · safety escalation recall **54%** (target 100%) · unsupported claims **17%** (target ≤ 3%) |
+| **Rollout** | Shadow mode → agent assist (human approves every reply) → auto-handle only the lowest-risk intents |
+| **Priority #1** | A dedicated escalation-risk model: all 44 dangerous failures had intent confidence ≥ 0.7, so confidence thresholds can't catch them |
+
+*Targets are proposed launch bars, not results.*
 
 ---
 
@@ -99,7 +114,7 @@ Full per-class metrics, confusion matrices and judge outputs are in [`results/`]
 
 ## Tech Stack
 
-Python · scikit-learn · NumPy · joblib · TF-IDF retrieval · OpenRouter (LLM reply generation and judging) · pytest
+Python · scikit-learn · NumPy · SciPy · joblib · TF-IDF retrieval · OpenRouter (LLM reply generation and judging) · unittest · GitHub Actions
 
 ## Project Structure
 

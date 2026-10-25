@@ -42,8 +42,8 @@ and multi-turn thread continuations across splits. Splitting whole threads by
 chronological order simulates real deployment (train on past, evaluate on
 future) and is independently leak-checked (0 threads span multiple splits).
 **Alternative considered:** Stratified random split by intent.
-**Why rejected:** Not possible before Step 3 (no intent labels existed yet at
-Step 2), and would still risk near-duplicate leakage across splits regardless.
+**Why rejected:** Not possible at split time, because no intent labels existed
+yet, and would still risk near-duplicate leakage across splits regardless.
 
 ---
 
@@ -94,7 +94,7 @@ decision).
 pseudo-labels on the 25,451 unlabeled train pairs), evaluated exclusively on
 the 200 real human gold labels.**
 **Reason:** No intent-labeled corpus exists apart from the 200-example golden
-set - Step 2's output is text pairs only, with no classification. Training
+set - the dataset build produces text pairs only, with no classification. Training
 solely within the 200 golden examples (e.g. k-fold CV) would average ~18
 examples per fold per class, too noisy for reliable metrics, and would burn the
 only real labels on training rather than evaluation.

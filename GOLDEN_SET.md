@@ -4,21 +4,20 @@
 
 `data/golden_set/candidates_200.jsonl` contains 200 **candidate** examples sampled
 from the held-out `eval_pool.jsonl` (5,453 customer→AmericanAir pairs, Nov 24 – Dec 3
-2017). No gold labels exist yet - every `gold_*` field is `null` until manually
-labeled with `tools/label_tool.py`. This file explains how the 200 were chosen.
+2017). All 200 were labeled by hand with `tools/label_tool.py`; the labels live in
+`data/golden_set/labels.json`. This file explains how the 200 were chosen.
 
 ## Isolation from training / retrieval
 
 The 200 candidates are drawn exclusively from `eval_pool.jsonl`, which was assigned
-its own set of **threads** (not just tweets) during the Step 2 time-based split  - 
-verified with 0 threads spanning multiple splits. None of these threads, or any
-tweet within them, were used to build the training set or (in later steps) the
-retrieval corpus. Two further conservative exclusions were applied on top of that
+its own set of **threads** (not just tweets) during the time-based split in
+`src/preprocessing/build_dataset.py`, verified with 0 threads spanning multiple splits. None of these threads, or any
+tweet within them, were used to build the training set or the retrieval corpus. Two further conservative exclusions were applied on top of that
 thread-level isolation before candidates were even considered:
 
 1. **Cross-split duplicate-flagged records excluded**: any eval-pool record whose
    normalized customer or AA-reply text exactly matches something seen in `train`
-   (`dup_customer_text_in_train` / `dup_aa_text_in_train`, computed in Step 2) was
+   (`dup_customer_text_in_train` / `dup_aa_text_in_train`, computed during the dataset build) was
    dropped from the candidate pool - 5,453 → 5,236 (96.0% retained). This is a belt-
    and-suspenders safeguard on top of thread isolation, in case a boilerplate phrase
    recurs across otherwise-unrelated threads.
@@ -32,8 +31,7 @@ thread-level isolation before candidates were even considered:
 The taxonomy and per-class targets came from an actual discovery pass over the real
 data (TF-IDF/KMeans clustering of the 48.6% of eval-pool messages that a draft
 keyword taxonomy failed to match, plus manual reading of samples) - not an assumed
-distribution. See the taxonomy-revision discussion for the full writeup; in short,
-the discovery pass confirmed the original 10 topical intents were sound but under-
+distribution. In short, the discovery pass confirmed the original 10 topical intents were sound but under-
 specified in phrasing, added no new classes, tightened `SAFETY_SECURITY`'s
 definition after finding real false positives ("safety video" ≠ a safety incident),
 and formalized `OTHER_UNCLEAR` as covering noise / non-English / context-dependent
@@ -49,8 +47,8 @@ escalation-recall metric.
 
 20 additional slots were reserved for deliberately hard cases, chosen from signals
 already computed on real data rather than invented: weak-retrieval risk (TF-IDF
-max-cosine-similarity to the train corpus - a temporary proxy; will be recomputed
-with the real embedding retrieval index in Step 5), multi-intent (2+ keyword-bucket
+max-cosine-similarity to the train corpus - a proxy, since the
+retrieval index did not exist yet when candidates were sampled), multi-intent (2+ keyword-bucket
 matches), short/noisy (≤5 words), and escalation-edge language (legal/regulatory
 threats, discrimination) outside the SAFETY_SECURITY stratum itself.
 
@@ -104,13 +102,12 @@ can still be `gold_escalation=True` if the underlying situation is urgent.
 SAFETY_SECURITY-stratum examples describe genuine past incidents, including one
 disclosure of a historical assault. They are included because a real support
 system needs to correctly escalate this class of message, not because of any
-editorial choice - please label them with the same care you'd want applied if you
-were the one reaching out.
+editorial choice - they were labeled with the same care anyone reaching out would deserve.
 
 ## What happens after labeling
 
-Once `labels.json` has 200 entries, the next step (not yet started) merges labels
-back onto `candidates_200.jsonl` to produce the finalized, versioned golden set
-used for every metric in this project (intent classifier evaluation, escalation
-policy evaluation, and the LLM-judge human-agreement study). No modeling, retrieval,
-or generation work begins before that merge is confirmed.
+`labels.json` (200 entries) is merged onto `candidates_200.jsonl` to form the
+frozen golden set used for every metric in this project: intent classification,
+the escalation policy and the LLM-judge human-agreement study. No modeling,
+retrieval or generation work started before the labels were finished, so none of
+it could influence them.

@@ -1,8 +1,8 @@
 """
 Shared taxonomy keyword patterns, used to generate WEAK-SUPERVISION pseudo-labels
 over the unlabeled train/dev corpus (25,451 / 5,453 pairs). These patterns are
-copied from src/preprocessing/sample_golden_set.py (kept in sync manually --
-that file is the approved, frozen Step 3 artifact and is not modified here).
+copied from src/preprocessing/sample_golden_set.py and kept in sync by hand
+(that file built the golden set, so it is frozen and not modified here).
 
 IMPORTANT: pseudo-labels produced by this module are NEVER used as evaluation
 ground truth. They are only used as noisy training signal for the intent

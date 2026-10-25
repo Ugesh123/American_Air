@@ -1,5 +1,5 @@
 """
-Step 2 pipeline: raw twcs.csv -> cleaned, thread-level, time-split, leakage-checked
+Dataset build: raw twcs.csv -> cleaned, thread-level, time-split, leakage-checked
 customer -> AmericanAir resolution pairs.
 
 Usage:
