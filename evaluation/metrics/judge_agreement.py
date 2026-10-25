@@ -23,7 +23,7 @@ DIMENSIONS = ['relevance', 'groundedness', 'actionability', 'tone']
 def main():
     if not os.path.exists(JUDGE_PATH) or not os.path.exists(HUMAN_PATH):
         raise SystemExit(
-            'Missing judge_scores.jsonl and/or human_judge_scores.json -- run '
+            'Missing judge_scores.jsonl and/or human_judge_scores.json - run '
             'evaluation/judge/run_judge.py and tools/judge_agreement_tool.py first.')
 
     judge = {r['pair_id']: r for r in (json.loads(l) for l in open(JUDGE_PATH, encoding='utf-8'))}
@@ -47,7 +47,7 @@ def main():
         }
         print(f'{dim}: exact={exact:.3f}  within_1={within1:.3f}  spearman_rho={rho:.3f} (p={pval:.4f})')
 
-    # binary unsupported_claim -- Cohen's kappa
+    # binary unsupported_claim - Cohen's kappa
     j_bin = [judge[pid]['unsupported_claim'] == 'YES' for pid in common_ids]
     h_bin = [human[pid]['unsupported_claim'] == 'YES' for pid in common_ids]
     kappa = cohen_kappa_score(j_bin, h_bin)

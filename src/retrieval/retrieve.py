@@ -14,17 +14,17 @@ Two backends, same interface (`Retriever.query(text, k) -> list[RetrievedCase]`)
    next experiment (see REPORT.md, "Next steps").
 
 What is embedded/indexed: `customer_text_clean` from data/processed/train.jsonl
-(the customer's message, not the AA reply) -- we retrieve similar PAST CUSTOMER
+(the customer's message, not the AA reply) - we retrieve similar PAST CUSTOMER
 MESSAGES and return their associated `aa_text_clean` as grounding evidence for
 the new message, because we want "how did AA historically respond to a similar
 complaint", not "find me a similar-sounding AA reply".
 
 How many results are retrieved: top-5 by default (`k=5`), but only entries
-above `MIN_SIMILARITY` are kept -- irrelevant low-similarity matches are
+above `MIN_SIMILARITY` are kept - irrelevant low-similarity matches are
 filtered out entirely rather than padding the evidence list.
 
 Retrieval confidence: the top-1 cosine similarity score itself (0-1). This is
-NOT calibrated to any external scale -- it is used only for RELATIVE decisions
+NOT calibrated to any external scale - it is used only for RELATIVE decisions
 (escalation policy thresholding, golden-set weak-retrieval flagging), and that
 is stated explicitly wherever it's used.
 """

@@ -3,7 +3,7 @@ Final intent classifier for the deployed agent. Same weak-supervision training
 approach as the baseline (see DECISIONS.md), but with two real, modest
 improvements over baselines/simple_ml_baseline.py:
   1. TF-IDF features include unigrams+bigrams (vs unigrams only), more max_features.
-  2. Calibrated LinearSVC (vs plain Logistic Regression) -- LinearSVC's margin-based
+  2. Calibrated LinearSVC (vs plain Logistic Regression) - LinearSVC's margin-based
      decision often handles the class imbalance in weak-labeled data a bit better;
      CalibratedClassifierCV gives us back well-formed probabilities for
      intent_confidence, which the escalation policy needs.

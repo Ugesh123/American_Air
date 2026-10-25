@@ -13,7 +13,7 @@ Windows CMD:
     set OPENROUTER_MODEL=google/gemini-2.5-flash
 
 Then:
-    python3 evaluation\judge\run_judge.py
+    python evaluation/judge/run_judge.py
 """
 
 import json

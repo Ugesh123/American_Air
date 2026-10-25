@@ -11,9 +11,9 @@ Built on **36,357 real AmericanAir customer-support conversations**, it detects 
 
 ---
 
-## 🧭 Understanding the Problem
+## Understanding the Problem
 
-### 1️⃣ Context
+### 1. Context
 
 | | |
 |---|---|
@@ -22,7 +22,7 @@ Built on **36,357 real AmericanAir customer-support conversations**, it detects 
 | **Stakeholders** | **Customers** (fast, correct answers), **support agents** (less repetitive work), **support leads** (quality and risk) and the **brand** (trust). |
 | **Research** | Cleaned 36,531 raw conversation pairs into 36,357, split them by thread and time into **leakage-free** train, dev and eval sets, and ran a clustering-based discovery pass to finalise **11 intents** from the real data rather than assumptions. |
 
-### 2️⃣ Diagnosis
+### 2. Diagnosis
 
 | | |
 |---|---|
@@ -31,7 +31,7 @@ Built on **36,357 real AmericanAir customer-support conversations**, it detects 
 | **Benchmark view** | Measured against simple baselines: a majority-class guess scores **0.120** accuracy and a TF-IDF + logistic regression model **0.535**. The final classifier reaches **0.665** (macro F1 0.650). |
 | **Trade-off** | Automate more vs. stay safe. The policy deliberately favours **catching risky cases** (escalation recall) over automation rate, and escalation is decided by **explainable rules**, not by an LLM. |
 
-### 3️⃣ Strategy
+### 3. Strategy
 
 | | |
 |---|---|
@@ -40,7 +40,7 @@ Built on **36,357 real AmericanAir customer-support conversations**, it detects 
 | **Solution** | Intent classification → retrieval of similar resolved cases → grounded reply drafting → **auto-handle or escalate**, returning `{intent, confidence, reply, decision, reason, evidence}`. |
 | **Implementation** | Python + scikit-learn (TF-IDF + calibrated LinearSVC), TF-IDF retrieval, rule-based escalation policy, LLM reply generation and judging via OpenRouter, and a labeling tool for the golden set. |
 
-### 4️⃣ Impact
+### 4. Impact
 
 | | |
 |---|---|
@@ -51,7 +51,7 @@ Built on **36,357 real AmericanAir customer-support conversations**, it detects 
 
 ---
 
-## ⚙️ How It Works
+## How It Works
 
 ```
 Customer message
@@ -68,7 +68,7 @@ Reply generation (optional) ─ LLM drafts a reply grounded only in retrieved ev
 Output ─ {intent, intent_confidence, reply, decision, reason, evidence}
 ```
 
-## 📊 Results (200-example human-labeled golden set)
+## Results (200-example human-labeled golden set)
 
 | System | Accuracy | Macro F1 |
 |---|---|---|
@@ -91,17 +91,17 @@ Output ─ {intent, intent_confidence, reply, decision, reason, evidence}
 
 Full per-class metrics, confusion matrices and judge outputs are in [`results/`](results/).
 
-## 🧪 Evaluation Method
+## Evaluation Method
 
 - **Leakage-free splits:** thread-level, time-based split with **0 threads** shared across train, dev and eval.
 - **Golden set:** 200 human-labeled examples from held-out data, excluding text duplicated in training and non-English records, with rare high-risk classes over-sampled and **20 deliberately hard cases**.
 - **Honest reporting:** weak spots (e.g. SAFETY_SECURITY recall) are shown, not hidden behind the headline number.
 
-## 🧰 Tech Stack
+## Tech Stack
 
 Python · scikit-learn · NumPy · joblib · TF-IDF retrieval · OpenRouter (LLM reply generation and judging) · pytest
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/preprocessing/   cleaning, dataset build, golden-set sampling
@@ -115,7 +115,7 @@ tools/               labeling and judge-agreement tools
 results/             all evaluation outputs
 ```
 
-## ▶️ How to Run
+## How to Run
 
 ```bash
 pip install -r requirements.txt
@@ -130,7 +130,7 @@ python3 src/pipeline.py --golden_set
 python3 src/pipeline.py --text "my bag never arrived" --generate_reply
 ```
 
-## ✅ Tests
+## Tests
 
 ```bash
 python -m unittest discover -s tests -v

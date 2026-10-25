@@ -1,11 +1,11 @@
-# REPORT — AmericanAir AI Support Agent
+# REPORT - AmericanAir AI Support Agent
 
 ## 1. Problem framing
 
 Given real customer↔brand Twitter support conversations, build an agent that
 classifies a customer's intent, drafts a reply grounded in how the brand has
 historically resolved similar issues, and decides whether to auto-handle or
-escalate to a human — with a stated reason. The guiding principle is that the
+escalate to a human - with a stated reason. The guiding principle is that the
 **proof matters more than the system**: a simple architecture with rigorous,
 honest evaluation beats a complex one with vague claims.
 
@@ -15,7 +15,7 @@ Not "high accuracy" alone. A support agent that's confidently wrong or that
 auto-handles something a human should see is worse than one that escalates
 more and automates less. "Good" here means: (a) intent classification good
 enough to inform a decision, not perfect; (b) an escalation policy whose
-**recall on genuinely human-required cases** (safety, legal threats, account
+**recall on human-required cases** (safety, legal threats, account
 security) is the metric that matters most, even at the cost of precision; (c)
 replies that never invent policy, refunds, or procedures beyond what real
 historical data supports; (d) every claimed number traceable to an actual run
@@ -23,16 +23,16 @@ against real human labels, never estimated.
 
 ## 3. What was intentionally not built
 
-- No fine-tuned/transformer classifier — TF-IDF + linear models, evaluated
+- No fine-tuned/transformer classifier - TF-IDF + linear models, evaluated
   well; simple and well-proven first.
 - No multi-agent framework, LangChain/LangGraph, Docker/K8s, or cloud infra.
-- No multi-turn dialogue manager — thread context is read-only for grounding,
+- No multi-turn dialogue manager - thread context is read-only for grounding,
   not a stateful conversation manager.
 - No live ticketing/CRM integration.
-- No full-dataset processing — a documented, reproducible subsample (36,357
+- No full-dataset processing - a documented, reproducible subsample (36,357
   cleaned pairs from ~2.8M raw rows) for one brand.
 - No multi-label intent classification (see DECISIONS.md).
-- No LLM-decided escalation — a deterministic, explainable policy instead.
+- No LLM-decided escalation - a deterministic, explainable policy instead.
 
 ## 4. System architecture
 
@@ -42,13 +42,13 @@ Customer message
   -> Historical retrieval (TF-IDF cosine similarity over 25,451 train pairs)
   -> Escalation decision (deterministic rules over intent/retrieval confidence
      + intent-sensitivity + legal/safety keyword override)
-  -> [Grounded reply generation -- LLM, requires your own API key, see §11]
+  -> [Grounded reply generation - LLM, requires your own API key, see §11]
   -> Structured output: {intent, intent_confidence, reply, decision, reason, evidence}
 ```
 
 Retrieval is pluggable: a `TfidfRetriever` (used for every number below) and an
 optional `EmbeddingRetriever` (sentence-transformers + FAISS, not yet
-benchmarked) share one interface — see DECISIONS.md.
+benchmarked) share one interface - see DECISIONS.md.
 
 ## 5. Dataset and sampling
 
@@ -61,22 +61,22 @@ thread-level, chronological 70/15/15 split produced train (25,451 pairs),
 dev (5,453), and eval-pool (5,453), with **0 threads spanning multiple
 splits** (programmatically verified) and small, documented cross-split
 text-overlap rates (50-54 boilerplate phrases per split, mostly generic
-acknowledgments — see `data/step2_stats.json`).
+acknowledgments - see `data/step2_stats.json`).
 
 ## 6. Golden evaluation methodology
 
 200 examples, stratified across the 11 finalized intents plus 20 deliberately
 hard-case slots (weak-retrieval, multi-intent, short/noisy, escalation-edge
 language), sampled from the held-out eval pool with two additional exclusions
-(cross-split-duplicate-flagged records, heuristically non-English) — see
+(cross-split-duplicate-flagged records, heuristically non-English) - see
 `GOLDEN_SET.md` for full methodology. All 200 are **real human labels**,
 manually reviewed and confirmed via a local labeling tool (`tools/label_tool.py`).
 
 ## 7. Baselines
 
-1. **Trivial (majority-class, always-AUTO_HANDLE)** — floor.
-2. **Trivial (majority-class, always-ESCALATE)** — safety-reference floor.
-3. **Simple ML (TF-IDF unigrams + Logistic Regression, weak-supervised)** —
+1. **Trivial (majority-class, always-AUTO_HANDLE)** - floor.
+2. **Trivial (majority-class, always-ESCALATE)** - safety-reference floor.
+3. **Simple ML (TF-IDF unigrams + Logistic Regression, weak-supervised)**  - 
    real non-LLM baseline.
 4. **Final system (TF-IDF uni+bigrams + calibrated LinearSVC + TF-IDF
    retrieval + deterministic escalation policy)**.
@@ -93,7 +93,7 @@ manually reviewed and confirmed via a local labeling tool (`tools/label_tool.py`
 
 Per-class detail, confusion matrices: `results/intent_classifier_metrics.json`.
 Notable weak spot: **SAFETY_SECURITY recall is only 0.23** even in the final
-classifier (0.00 in the baseline) — flagged prominently in §10 and §11, not
+classifier (0.00 in the baseline) - flagged prominently in §10 and §11, not
 hidden by the headline accuracy number.
 
 ### Escalation policy
@@ -136,15 +136,15 @@ contained at least one unsupported claim. Actionability is the weakest
 dimension: replies are polite and on-topic but often don't tell the customer
 what to do next.
 
-## 9. Failure analysis — top 5 real failure modes
+## 9. Failure analysis - top 5 real failure modes
 
 **1. SAFETY_SECURITY is systematically under-recognized by the classifier.**
 Example `aa_2344855_2344853`: *"Coming back was better... waited 40 minutes..."*
-— gold SAFETY_SECURITY, predicted OTHER_UNCLEAR (confidence 0.85). 7 of 13
+ -  gold SAFETY_SECURITY, predicted OTHER_UNCLEAR (confidence 0.85). 7 of 13
 gold SAFETY_SECURITY examples were misclassified as OTHER_UNCLEAR. Hypothesis:
 these incidents are described in narrative, indirect language ("waited 40
 minutes," not "I was hurt") that doesn't match any keyword-derived pseudo-label
-pattern used in weak supervision — the classifier never saw enough
+pattern used in weak supervision - the classifier never saw enough
 SAFETY_SECURITY-like training signal because the weak labeler itself
 under-detects this exact phrasing style. Improvement: hand-label a larger
 SAFETY_SECURITY-focused seed set rather than relying on keyword pseudo-labels
@@ -152,19 +152,19 @@ for this specific high-stakes class.
 
 **2. Confident-but-wrong intent predictions bypass the escalation policy's
 confidence-based safety net.** Example `aa_2864248_2864249`: *"But we still
-are at the gate"* — gold CHECKIN_BOARDING/escalate (customer possibly stuck
-mid-boarding), predicted FLIGHT_STATUS_DELAY_CANCEL at 0.99 confidence — so
+are at the gate"* - gold CHECKIN_BOARDING/escalate (customer possibly stuck
+mid-boarding), predicted FLIGHT_STATUS_DELAY_CANCEL at 0.99 confidence - so
 confident it cleared the escalation threshold, resulting in a dangerous
 AUTO_HANDLE. Hypothesis: high classifier confidence on short, ambiguous
-fragments is poorly calibrated — the model is "sure" precisely because the
+fragments is poorly calibrated - the model is "sure" precisely because the
 weak-labeled training data has very few examples this short. Improvement:
 down-weight confidence for very short messages, or add message-length as an
 explicit escalation-policy signal.
 
 **3. ACCOUNT_WEBSITE_APP is confused with COMPLIMENT and OTHER_UNCLEAR.**
 Example `aa_2867972_2867974`: *"it should. But it hasn't been. I do appreciate
-all the great flight attendants..."* — gold ACCOUNT_WEBSITE_APP, predicted
-COMPLIMENT (0.98 confidence). This is a genuinely hard example: it's a
+all the great flight attendants..."* - gold ACCOUNT_WEBSITE_APP, predicted
+COMPLIMENT (0.98 confidence). This is a hard example: it's a
 later-turn thread fragment mixing a technical complaint with unrelated praise.
 Hypothesis: ACCOUNT_WEBSITE_APP has the smallest weak-supervision training
 signal (its keyword pattern is broad but rare in practice) and later-turn
@@ -174,7 +174,7 @@ input for later-turn messages, not just the focal message.
 
 **4. Repeated-complaint sarcasm confuses topic classification.** Example
 `aa_2865587_2865586`: *"Another lost bag with. You're batting 100 whenever I
-fly with you!!! Great job guys!"* — gold COMPLAINT_GENERAL (the point is
+fly with you!!! Great job guys!"* - gold COMPLAINT_GENERAL (the point is
 frustration, not a fresh baggage claim), predicted BAGGAGE. Hypothesis: the
 weak-label keyword heuristic (and by extension the classifier trained on it)
 treats the literal word "bag" as decisive, missing that the message's actual
@@ -186,12 +186,12 @@ confidence when COMPLAINT_GENERAL-style intensifiers co-occur.
 **5. Escalation thresholds were deliberately not tuned to the golden set,
 producing an honest but weak 26.7% escalation recall.** This isn't a single
 example but a systemic finding: 44/200 dangerous failures, cutting across
-nearly every intent class, share the same root cause — the intent-confidence
+nearly every intent class, share the same root cause - the intent-confidence
 and retrieval-confidence thresholds (0.55/0.70/0.20) were set from reasoning
 about the architecture, not fit to this data (see DECISIONS.md for why). The
 real, uncomfortable result is that the classifier is too often confidently
 wrong, and confidence-based escalation doesn't catch it. Improvement: this is
-the single highest-value next step — likely a dedicated escalation-risk model
+the single highest-value next step - likely a dedicated escalation-risk model
 trained on gold_escalation labels directly (once more than 200 are available),
 rather than confidence thresholds on a model trained for a different task.
 
@@ -211,7 +211,7 @@ for several real, disclosed reasons:
   misses 3 out of 4 cases that should escalate is not describing a
   trustworthy system, even if the auto-handled subset looks fine in isolation.
 - **The golden set is 200 examples.** Per-class metrics for rare intents
-  (SAFETY_SECURITY n=13, ACCOUNT_WEBSITE_APP n=23) have wide uncertainty —
+  (SAFETY_SECURITY n=13, ACCOUNT_WEBSITE_APP n=23) have wide uncertainty  - 
   a couple of different examples would meaningfully move these numbers.
 - **The weak-supervision training labels bound everything downstream.** The
   intent classifier was trained on keyword-heuristic pseudo-labels, not real
@@ -219,12 +219,12 @@ for several real, disclosed reasons:
   built on top of it (retrieval relevance, escalation confidence).
 - **Historical AA replies are evidence of past behavior, not correctness.**
   Nothing here validates that the 2017 AmericanAir agent replies being
-  retrieved as "grounding evidence" were actually the *right* thing to say —
+  retrieved as "grounding evidence" were actually the *right* thing to say  - 
   only that they're what was historically said.
 - **The held-out eval window (Nov 24–Dec 3, 2017) is a narrow 10-day slice**
   that includes a real, quantified event (a scheduling disruption around
   Christmas 2017) at a 10x higher rate than in train (0.35% vs 0.03% of
-  messages) — a small effect in absolute terms, but a reminder that this
+  messages) - a small effect in absolute terms, but a reminder that this
   window isn't necessarily "typical" traffic.
 - **Distribution shift**: this is all 2017 Twitter data; a 2026 support agent
   built this way would need re-validation against current channels/complaint
@@ -239,7 +239,7 @@ for several real, disclosed reasons:
 - Retrieval uses TF-IDF only; the interface-compatible `EmbeddingRetriever`
   is not benchmarked yet.
 - 2 of 200 golden-set records are missing `gold_action` (disclosed, not
-  patched — see DECISIONS.md).
+  patched - see DECISIONS.md).
 
 ## 12. What I would do with one more week
 

@@ -3,7 +3,7 @@ Baseline 3 (simple ML, non-LLM): TF-IDF + Logistic Regression intent classifier,
 trained via weak supervision (see src/intent/taxonomy_keywords.py) on the 25,451
 unlabeled train pairs, evaluated on the 200 real golden-set labels. Reply
 "generation" here is literally the single nearest historical AA reply by TF-IDF
-cosine similarity -- no LLM, no generation, just retrieval. Escalation is a
+cosine similarity - no LLM, no generation, just retrieval. Escalation is a
 simple keyword rule (not the final deterministic policy in src/escalation/).
 
 Usage:
@@ -91,7 +91,7 @@ def run():
     print(f'Wrote {out_path}')
 
     acc = np.mean([r['pred_intent'] == r['gold_intent'] for r in results])
-    print(f'Quick check -- raw intent accuracy vs golden set: {acc:.3f} '
+    print(f'Quick check - raw intent accuracy vs golden set: {acc:.3f} '
           f'(full metrics computed separately by evaluation/metrics/intent_metrics.py)')
     return results
 

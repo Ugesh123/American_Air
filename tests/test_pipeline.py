@@ -126,7 +126,7 @@ class TestPipelineSmoke(unittest.TestCase):
     def test_agent_processes_a_message(self):
         model_dir = os.path.join(ROOT, 'results', 'models')
         if not os.path.exists(os.path.join(model_dir, 'intent_classifier.joblib')):
-            self.skipTest('classifier not trained yet -- run src/intent/train_classifier.py first')
+            self.skipTest('classifier not trained yet - run src/intent/train_classifier.py first')
         from pipeline import Agent
         agent = Agent()
         result = agent.process('my flight got delayed and nobody told me anything')

@@ -71,7 +71,7 @@ button{padding:10px 18px;border-radius:6px;border:none;cursor:pointer;font-weigh
 #prev{background:#2a2f38;color:#fff}
 .progress{color:#9aa4b2;font-size:13px}
 </style></head><body>
-<h2>Human vs Judge Agreement — <span id="num"></span> / <span id="total"></span></h2>
+<h2>Human vs Judge Agreement - <span id="num"></span> / <span id="total"></span></h2>
 <div class="progress" id="prog"></div>
 <div class="card">
   <div><b>Customer message:</b></div>
@@ -173,7 +173,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
     if not os.path.exists(GENERATED_PATH):
-        raise SystemExit(f'{GENERATED_PATH} not found -- run generate_replies.py first (requires your API key).')
+        raise SystemExit(f'{GENERATED_PATH} not found - run generate_replies.py first (requires your API key).')
     if not os.path.exists(SAMPLE_PATH):
         build_sample()
     with socketserver.TCPServer(('localhost', PORT), Handler) as httpd:

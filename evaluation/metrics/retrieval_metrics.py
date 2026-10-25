@@ -6,7 +6,7 @@ labels on the train side. What we CAN measure honestly:
   1. The similarity-score distribution on real golden-set queries (are we
      finding decent matches at all, or mostly near-zero noise?).
   2. A PROXY topical-match rate: does the top-1 retrieved case's weak-label
-     (keyword heuristic -- same caveat as classifier training) match the
+     (keyword heuristic - same caveat as classifier training) match the
      golden-set query's REAL gold_intent? This is explicitly a proxy, bounded
      by the weak labeler's own ~53-66% accuracy (see intent_classifier_metrics),
      not a clean ground-truth retrieval metric.
@@ -52,7 +52,7 @@ def main():
           f'median={np.percentile(top1_sims,50):.3f} p75={np.percentile(top1_sims,75):.3f} max={top1_sims.max():.3f}')
     print(f'\nPROXY topical-match rate (top-1 retrieved case\'s weak-label == query\'s real gold_intent): '
           f'{sum(proxy_match)}/{len(proxy_match)} ({100*sum(proxy_match)/len(proxy_match):.1f}%)')
-    print('(Bounded above by the weak labeler\'s own ~53-66% accuracy -- see intent_classifier_metrics.json. '
+    print('(Bounded above by the weak labeler\'s own ~53-66% accuracy - see intent_classifier_metrics.json. '
           'This is a proxy, not a clean ground-truth retrieval metric.)')
 
     result = {

@@ -7,7 +7,7 @@ Then open:
     http://localhost:8420
 
 Labels are saved to data/golden_set/labels.json as you go (one write per save,
-so you can close the tool and resume later -- progress is never lost).
+so you can close the tool and resume later - progress is never lost).
 """
 import json
 import os
@@ -22,13 +22,13 @@ DRAFTS_PATH = os.path.join(ROOT, 'data', 'golden_set', 'label_drafts.json')
 PORT = 8420
 
 TAXONOMY = [
-    {"name": "FLIGHT_STATUS_DELAY_CANCEL", "definition": "Customer asking about, or reporting, the operational status of a specific flight -- delays, cancellations, gate/departure changes, or whether a flight will be affected by a disruption.",
+    {"name": "FLIGHT_STATUS_DELAY_CANCEL", "definition": "Customer asking about, or reporting, the operational status of a specific flight - delays, cancellations, gate/departure changes, or whether a flight will be affected by a disruption.",
      "include": "Delay/cancellation reports and questions; \"will my flight be affected\" questions; ETA/gate questions.",
      "exclude": "General dissatisfaction framed purely as a complaint with no live status ask (-> COMPLAINT_GENERAL); requests to actually change the booking (-> BOOKING_CHANGE)."},
-    {"name": "BOOKING_CHANGE", "definition": "Customer wants to modify an existing reservation -- rebook, change dates, change seats, upgrade, split/merge a PNR.",
+    {"name": "BOOKING_CHANGE", "definition": "Customer wants to modify an existing reservation - rebook, change dates, change seats, upgrade, split/merge a PNR.",
      "include": "Explicit change/rebook/upgrade requests; PNR/record-locator-referenced change asks.",
      "exclude": "Asking about flight status without requesting a change (-> FLIGHT_STATUS); asking for money back for a change already made (-> REFUND_COMPENSATION)."},
-    {"name": "BAGGAGE", "definition": "Anything about checked baggage or a personal item left on board -- lost, delayed, damaged, fees, or left-behind items.",
+    {"name": "BAGGAGE", "definition": "Anything about checked baggage or a personal item left on board - lost, delayed, damaged, fees, or left-behind items.",
      "include": "Checked-bag issues; explicit \"left my [item] on the plane/seat\" reports.",
      "exclude": "General amenity complaints unrelated to a specific bag (-> COMPLAINT_GENERAL)."},
     {"name": "REFUND_COMPENSATION", "definition": "Explicit request for money back, a voucher, or compensation for a specific issue.",
@@ -41,7 +41,7 @@ TAXONOMY = [
      "include": "Anything about the loyalty program itself.", "exclude": "A booking-specific upgrade request unrelated to elite status (-> BOOKING_CHANGE)."},
     {"name": "ACCOUNT_WEBSITE_APP", "definition": "Website or app malfunction, login issues, technical errors unrelated to a specific flight's operational status.",
      "include": "Login/app/website bugs.", "exclude": "Using the app to check a flight's status (-> FLIGHT_STATUS)."},
-    {"name": "SAFETY_SECURITY", "definition": "A genuine personal safety, medical, security, or discrimination INCIDENT -- not casual mentions of the word safety.",
+    {"name": "SAFETY_SECURITY", "definition": "A genuine personal safety, medical, security, or discrimination INCIDENT - not casual mentions of the word safety.",
      "include": "Medical emergencies, threats, assault, discrimination claims, allergy-related incidents.",
      "exclude": "References to safety VIDEOS, safety marketing/hashtags, or general \"safety is important\" commentary with no personal incident."},
     {"name": "COMPLIMENT", "definition": "Primarily positive/thankful feedback with no unresolved request.",
@@ -50,7 +50,7 @@ TAXONOMY = [
      "include": "General venting, service-quality complaints.", "exclude": "Any complaint that also contains a specific actionable ask matching another class -> use that class instead."},
     {"name": "OTHER_UNCLEAR", "definition": "Off-topic/noise content, non-English messages, and later-turn fragments that can't be classified without prior thread context.",
      "include": "Personal chatter unrelated to support; pure acknowledgments; short context-dependent replies; non-English text.",
-     "exclude": "Anything you CAN confidently classify once you read the thread context -- use the real intent instead."},
+     "exclude": "Anything you CAN confidently classify once you read the thread context - use the real intent instead."},
 ]
 
 
@@ -68,7 +68,7 @@ def load_labels():
 
 def load_drafts():
     """AI-drafted starting values for examples not yet confirmed by the human
-    annotator. These are NEVER written to labels.json automatically -- they are
+    annotator. These are NEVER written to labels.json automatically - they are
     only shown as pre-filled, clearly-marked-as-draft form values in the UI.
     Saving (clicking 'Save & Next') is what turns a draft into a real label."""
     if os.path.exists(DRAFTS_PATH):

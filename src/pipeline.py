@@ -86,7 +86,7 @@ if __name__ == '__main__':
     ap.add_argument('--text', default=None)
     ap.add_argument('--golden_set', action='store_true')
     ap.add_argument('--generate_reply', action='store_true',
-                     help='Requires OPENROUTER_API_KEY and OPENROUTER_MODEL -- see src/generation/generate_replies.py')
+                     help='Requires OPENROUTER_API_KEY and OPENROUTER_MODEL - see src/generation/generate_replies.py')
     args = ap.parse_args()
 
     agent = Agent()

@@ -1,8 +1,0 @@
-{
-  "metric": "Verified Auto-Resolution Rate (FULL)",
-  "verified_count": 58,
-  "n": 200,
-  "rate": 0.29,
-  "dangerous_failure_rate": 0.22,
-  "dangerous_failure_count": 44
-}

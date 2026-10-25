@@ -10,7 +10,7 @@ Windows CMD:
     set OPENROUTER_MODEL=openrouter/free
 
 Then:
-    python3 src\generation\generate_replies.py
+    python src/generation/generate_replies.py
 """
 
 import json
@@ -30,7 +30,7 @@ STRICT RULES:
 URLs that are not present in the retrieved historical evidence.
 2. If the evidence does not clearly support a specific answer, write a reply
 that acknowledges the issue and says a team member will follow up with
-specifics -- do NOT guess at specifics.
+specifics - do NOT guess at specifics.
 3. Be concise, professional, and actionable, in the voice the historical
 replies demonstrate.
 4. Do not promise anything (refund amount, timeline, compensation) that isn't

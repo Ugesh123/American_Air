@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AmericanAir Golden Set — Labeling Tool</title>
+<title>AmericanAir Golden Set - Labeling Tool</title>
 <style>
   :root { --bg:#0f1216; --panel:#171b21; --border:#2a2f38; --text:#e8eaed; --muted:#9aa4b2;
           --accent:#5b8def; --good:#3fb950; --warn:#e3b341; --bad:#f85149; }
@@ -60,7 +60,7 @@
   </div>
 
   <div id="main">
-    <h1>AmericanAir Golden Set — Example <span id="cur-num">1</span> / 200</h1>
+    <h1>AmericanAir Golden Set - Example <span id="cur-num">1</span> / 200</h1>
     <div class="sub" id="meta-line"></div>
     <div id="draft-banner-slot"></div>
 
@@ -75,18 +75,18 @@
       <div class="customer-text" id="customer-text"></div>
       <button class="raw-toggle" onclick="toggleRaw()">show raw original tweet text</button>
       <div class="raw-box" id="raw-box"></div>
-      <button class="hint-toggle" onclick="toggleHint()">reveal low-precision system hint (not a prediction — use with caution)</button>
+      <button class="hint-toggle" onclick="toggleHint()">reveal low-precision system hint (not a prediction - use with caution)</button>
       <div class="hint-box" id="hint-box"></div>
     </div>
 
     <div class="card">
-      <label>gold_intent — pick exactly one</label>
+      <label>gold_intent - pick exactly one</label>
       <div id="intent-buttons" class="radio-row" style="flex-wrap:wrap"></div>
 
-      <label>gold_intent_confidence_note (optional — note here if you were torn between two)</label>
+      <label>gold_intent_confidence_note (optional - note here if you were torn between two)</label>
       <input type="text" id="intent-note">
 
-      <label>gold_action — what should the agent actually do?</label>
+      <label>gold_action - what should the agent actually do?</label>
       <input type="text" id="gold-action" placeholder="e.g. provide flight status update / initiate refund / escalate to human">
 
       <label>gold_escalation</label>
@@ -193,7 +193,7 @@ function render() {
   document.getElementById('raw-box').style.display = 'none';
   document.getElementById('hint-box').innerText =
     'proxy_intent_hint (keyword heuristic used only to build the candidate pool, NOT a model prediction): ' + c.proxy_intent_hint
-    + '\n\nhistorical AA reply (for context only — not necessarily correct or ideal, do not treat as ground truth): ' + c.aa_text_clean_for_reference;
+    + '\n\nhistorical AA reply (for context only - not necessarily correct or ideal, do not treat as ground truth): ' + c.aa_text_clean_for_reference;
   document.getElementById('hint-box').style.display = 'none';
 
   const ctxCard = document.getElementById('context-card');
@@ -217,7 +217,7 @@ function render() {
   if (confirmed) {
     bannerSlot.innerHTML = '<div class="confirmed-banner">✓ You already reviewed and saved this example.</div>';
   } else if (draft) {
-    bannerSlot.innerHTML = '<div class="draft-banner">⚠ DRAFT — AI-generated, NOT yet reviewed by you. ' +
+    bannerSlot.innerHTML = '<div class="draft-banner">⚠ DRAFT - AI-generated, NOT yet reviewed by you. ' +
       'Read the example yourself and correct anything you disagree with before clicking Save &amp; Next. ' +
       'Clicking Save is what turns this into your real label.</div>';
   } else {
@@ -270,7 +270,7 @@ function updateDifficultyButtons() {
 async function saveAndNext() {
   const c = DATA.candidates[cur];
   if (!curIntent) { alert('Please select a gold_intent before saving.'); return; }
-  if (!document.getElementById('gold-action').value.trim()) { alert('gold_action is required — please describe what the agent should do.'); return; }
+  if (!document.getElementById('gold-action').value.trim()) { alert('gold_action is required - please describe what the agent should do.'); return; }
   if (curEscalation === null) { alert('Please choose ESCALATE or AUTO_HANDLE.'); return; }
   if (curEscalation === true && !document.getElementById('esc-reason').value.trim()) {
     alert('gold_escalation_reason is required when escalating.'); return;

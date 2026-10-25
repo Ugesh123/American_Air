@@ -23,7 +23,7 @@ TAXONOMY_PRIORITY = [
 ]
 
 # NOTE: these keyword patterns are a SIZING/CANDIDATE-SELECTION proxy only.
-# They are never used as the gold label -- the human annotator assigns gold_intent.
+# They are never used as the gold label - the human annotator assigns gold_intent.
 BUCKETS = {
     'FLIGHT_STATUS_DELAY_CANCEL': r'\b(delay(ed|s)?|cancel(led|ed|lation|s)?|on time|status|diverted|gate|departure|arriv\w*|affected flights?|flights? affected|scheduling (glitch|issue)|no pilot|missing pilot|eta|updates? on (my |the )?flight|flight (is|has) a (crew|pilot))\b',
     'BOOKING_CHANGE': r'\b(rebook|re-book|change my flight|reschedul\w*|seat change|upgrade|book(ing)?|reservation|pnr|record locator)\b',
@@ -178,7 +178,7 @@ def build(eval_pool_path, train_path, output_path):
 
     # ---- assemble thread context + write output ----
     # Shuffle final presentation order (same seeded RNG) so strata aren't blocked together
-    # during manual labeling -- purely a UX/anti-fatigue-bias choice, doesn't affect which
+    # during manual labeling - purely a UX/anti-fatigue-bias choice, doesn't affect which
     # 200 examples were chosen.
     ordered_pids = list(selected.keys())
     rng.shuffle(ordered_pids)
@@ -210,7 +210,7 @@ def build(eval_pool_path, train_path, output_path):
                 'selection_stratum': log_entry['stratum'],
                 'selection_reason': log_entry['reason'],
                 'proxy_intent_hint': proxy_bucket.get(pid, 'OTHER_UNCLEAR'),
-                # gold fields -- intentionally NULL, to be filled by the human annotator
+                # gold fields - intentionally NULL, to be filled by the human annotator
                 'gold_intent': None, 'gold_intent_confidence_note': None, 'gold_action': None,
                 'gold_escalation': None, 'gold_escalation_reason': None,
                 'difficulty': None, 'notes': None, 'labeled': False,

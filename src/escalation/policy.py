@@ -1,6 +1,6 @@
 """
 Deterministic AUTO_HANDLE vs ESCALATE policy. By design, this is
-NOT delegated to an LLM -- every decision must be explainable from a
+NOT delegated to an LLM - every decision must be explainable from a
 small set of measurable signals, each with a human-readable reason string.
 
 Signals used:
@@ -18,8 +18,8 @@ Signals used:
     under).
 
 Recall is deliberately prioritized over precision for SAFETY_SECURITY and the
-escalation-edge keyword override (high recall on genuinely human-required
-cases matters most) -- false escalations cost an agent's time;
+escalation-edge keyword override (high recall on human-required
+cases matters most) - false escalations cost an agent's time;
 false auto-handles of a safety issue are the actually dangerous failure mode.
 """
 import re
@@ -38,11 +38,11 @@ def decide(intent: str, intent_confidence: float, retrieval_confidence: float, c
     """Returns {'decision': 'AUTO_HANDLE'|'ESCALATE', 'reason': str}."""
 
     if intent == 'SAFETY_SECURITY':
-        return {'decision': 'ESCALATE', 'reason': 'Intent is SAFETY_SECURITY -- always escalates by policy.'}
+        return {'decision': 'ESCALATE', 'reason': 'Intent is SAFETY_SECURITY - always escalates by policy.'}
 
     if ESCALATION_EDGE_RE.search(customer_text):
         return {'decision': 'ESCALATE',
-                'reason': 'Message contains legal/regulatory/discrimination language -- escalates regardless of intent.'}
+                'reason': 'Message contains legal/regulatory/discrimination language - escalates regardless of intent.'}
 
     conf_threshold = SENSITIVE_INTENT_CONF_THRESHOLD if intent in SENSITIVE_INTENTS else INTENT_CONF_THRESHOLD
     if intent_confidence < conf_threshold:

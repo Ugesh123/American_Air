@@ -8,7 +8,7 @@ Usage:
         --output_dir data/processed
 
 This script is deliberately a single, deterministic, streaming pipeline (no
-random seeds needed -- the split is chronological, not random) so it is
+random seeds needed - the split is chronological, not random) so it is
 reproducible from the raw Kaggle CSV alone.
 
 Memory strategy: the raw file is ~500MB / ~2.8M rows, and the target machine
@@ -240,7 +240,7 @@ def run(input_path, output_dir):
         }
         print(f'[Leakage] {split}: {cust_flags}/{len(split_pairs[split])} customer texts '
               f'and {aa_flags}/{len(split_pairs[split])} AA-reply texts duplicate normalized '
-              f'strings seen in train (flagged, not removed -- see README for rationale)')
+              f'strings seen in train (flagged, not removed - see README for rationale)')
 
     # ---- write outputs ----
     os.makedirs(output_dir, exist_ok=True)

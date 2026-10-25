@@ -4,12 +4,12 @@ Text cleaning utilities for the AmericanAir customer-support pairs.
 Design decisions (see DECISIONS.md for the full rationale once written):
 - We always keep the RAW original text untouched alongside a CLEANED version,
   so every example is traceable back to the exact original tweet.
-- HTML entities (&amp;, &gt;, etc.) are unescaped -- Twitter's export leaves these raw.
+- HTML entities (&amp;, &gt;, etc.) are unescaped - Twitter's export leaves these raw.
 - URLs are replaced with a [URL] placeholder in the cleaned text (not deleted),
   since "customer included a link" is sometimes a real signal (e.g. attached a
   screenshot of an error), but the literal t.co URL has no reusable content.
 - The leading brand mention (@AmericanAir) is stripped from the cleaned customer
-  text since it's purely an addressing token, not content -- it would otherwise
+  text since it's purely an addressing token, not content - it would otherwise
   dominate every single example and add no discriminative signal.
 - Other @mentions (co-mentioned users, other handles) are replaced with [USER]
   to reduce sparsity while preserving the fact that a mention occurred.
@@ -63,7 +63,7 @@ def is_effectively_empty(clean_text: str, min_alnum_chars: int = 2) -> bool:
     (e.g. the tweet was just '@AmericanAir' plus a photo/link).
 
     IMPORTANT: placeholder tokens ([URL], [USER]) are stripped BEFORE counting
-    alphanumeric characters -- otherwise a link-only or mention-only tweet would
+    alphanumeric characters - otherwise a link-only or mention-only tweet would
     count "URL"/"USER" as real content and never get flagged as empty."""
     without_placeholders = PLACEHOLDER_RE.sub('', clean_text)
     alnum = re.sub(r'[^a-zA-Z0-9]', '', without_placeholders)

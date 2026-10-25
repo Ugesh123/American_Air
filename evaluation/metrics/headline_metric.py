@@ -47,11 +47,11 @@ def main():
                    'dangerous_failure_rate': dangerous_rate, 'dangerous_failure_count': len(dangerous)}
     else:
         rate = len(intent_correct_and_auto) / len(pipeline_out)
-        print(f'PARTIAL metric -- "Auto-Handle Candidates" (intent correct AND AUTO_HANDLE): '
+        print(f'PARTIAL metric - "Auto-Handle Candidates" (intent correct AND AUTO_HANDLE): '
               f'{len(intent_correct_and_auto)}/{len(pipeline_out)} = {rate:.3f}')
-        print('This is a CEILING on the true Verified Auto-Resolution Rate -- '
+        print('This is a CEILING on the true Verified Auto-Resolution Rate - '
               'run generate_replies.py + run_judge.py (requires your own API key) for the real metric.')
-        result = {'metric': 'Auto-Handle Candidates (PARTIAL -- ceiling, not real metric)',
+        result = {'metric': 'Auto-Handle Candidates (PARTIAL - ceiling, not real metric)',
                    'count': len(intent_correct_and_auto), 'n': len(pipeline_out), 'rate': rate,
                    'note': 'Requires results/judge_scores.jsonl for the full metric (needs LLM API access).',
                    'dangerous_failure_rate': dangerous_rate, 'dangerous_failure_count': len(dangerous)}

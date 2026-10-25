@@ -10,7 +10,7 @@ together end to end.
 **Reason:** Verified (not assumed) against the real dataset before committing:
 36,764 outbound tweets, 36,531 resolvable customer→brand pairs, 99.4%
 thread-linkage integrity, low duplicate rate (0.6% exact), and real presence
-across every draft taxonomy category including SAFETY_SECURITY -- the kind of
+across every draft taxonomy category including SAFETY_SECURITY - the kind of
 high-stakes escalation cases that make the escalation policy worth testing.
 **Alternative considered:** AmazonHelp/AppleSupport (higher volume but
 unbounded intent space); SpotifyCares (cleaner but lower-stakes escalation).
@@ -65,7 +65,7 @@ keyword pattern, not the original broad "safety" match.**
 **Reason:** The broad pattern surfaced real false positives ("safety video,"
 "#SafetyFirst" hashtags). Re-running with a pattern requiring actual incident
 language (assault, harassment, discrimination, medical emergency, allergy,
-threat) found 28 genuine candidates -- comfortably above the target of 12, so
+threat) found 28 genuine candidates - comfortably above the target of 12, so
 no shortfall-driven compromise was needed.
 **Alternative considered:** Backfilling the target with lower-confidence
 matches.
@@ -94,14 +94,14 @@ decision).
 pseudo-labels on the 25,451 unlabeled train pairs), evaluated exclusively on
 the 200 real human gold labels.**
 **Reason:** No intent-labeled corpus exists apart from the 200-example golden
-set -- Step 2's output is text pairs only, with no classification. Training
+set - Step 2's output is text pairs only, with no classification. Training
 solely within the 200 golden examples (e.g. k-fold CV) would average ~18
 examples per fold per class, too noisy for reliable metrics, and would burn the
 only real labels on training rather than evaluation.
 **Alternative considered:** k-fold cross-validation purely within the golden
 set.
 **Why rejected:** Too small and would contaminate the one clean evaluation
-resource. Weak supervision is a standard, disclosed technique -- pseudo-labels
+resource. Weak supervision is a standard, disclosed technique - pseudo-labels
 are never used as ground truth anywhere in evaluation.
 
 ---
@@ -191,4 +191,4 @@ schema validation, reported transparently, and does not block intent/escalation
 metrics (which use `gold_intent`/`gold_escalation`, both valid for all 200).
 **Alternative considered:** Filling in a plausible `gold_action` automatically.
 **Why rejected:** Would be writing a label the human annotator didn't actually
-provide -- the exact failure mode this whole project is designed to avoid.
+provide - the exact failure mode this whole project is designed to avoid.

@@ -2,7 +2,7 @@
 Intent classifier evaluation against the real 200-example golden set.
 Compares baselines/simple_ml_baseline.py vs the final classifier's predictions
 (from results/pipeline_outputs_golden_set.json), all against real gold_intent
-labels -- nothing here is estimated or invented.
+labels - nothing here is estimated or invented.
 
 Usage:
     python3 evaluation/metrics/intent_metrics.py
