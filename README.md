@@ -137,9 +137,11 @@ python src/pipeline.py --golden_set                                        # all
 python -m unittest discover -s tests -v                                    # 29 tests
 ```
 
+**Web demo** (no extra packages): `python app/server.py`, then open http://localhost:8000. Try any message, switch between the current policy and a proposed fix, and see the improvement loop's verdict for each change.
+
 Reply generation and judging need `OPENROUTER_API_KEY` and `OPENROUTER_MODEL` (see [`.env.example`](.env.example)). No API keys are committed to this repository.
 
-**Code:** `src/` (pipeline, classifier, retrieval, escalation, generation) · `evaluation/` (metrics, LLM judge) · `baselines/` · `tools/` (labeling and judge-check tools) · `tests/`
+**Code:** `app/` (web demo) · `src/` (pipeline, classifier, retrieval, escalation, generation) · `evaluation/` (metrics, LLM judge) · `baselines/` · `tools/` (labeling and judge-check tools) · `tests/`
 
 **Stack:** Python · scikit-learn · NumPy · SciPy · OpenRouter · unittest · GitHub Actions
 

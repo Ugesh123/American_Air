@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support Agent Demo</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --card: #ffffff; --ink: #1c2333; --muted: #5d6677; --line: #e3e0d8;
+    --accent: #1f4e8c; --good: #1e7a4c; --good-bg: #e5f3ec; --bad: #b3261e; --bad-bg: #fbe9e7;
+    --warn: #8a5a00; --warn-bg: #fdf1dc;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 920px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 28px; margin: 0 0 6px; }
+  h2 { font-size: 20px; margin: 0 0 4px; }
+  p.lead { color: var(--muted); margin: 0 0 20px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: 14px; }
+  .stat b { font-size: 18px; display: block; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+  .hint { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+  textarea { width: 100%; min-height: 84px; padding: 12px; font: inherit; border: 1px solid var(--line); border-radius: 8px; resize: vertical; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  button, select { font: inherit; font-size: 14px; border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+  button.primary { background: var(--accent); color: #fff; border: 0; }
+  button.chip { background: #f0eee8; border: 1px solid var(--line); color: var(--ink); }
+  button.tab { background: #f0eee8; border: 1px solid var(--line); color: var(--ink); }
+  button.tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+  select { border: 1px solid var(--line); background: #fff; max-width: 100%; min-width: 0; flex: 1 1 200px; }
+  .badge { display: inline-block; font-weight: 700; font-size: 14px; padding: 4px 10px; border-radius: 6px; }
+  .AUTO_HANDLE { background: var(--good-bg); color: var(--good); }
+  .ESCALATE { background: var(--warn-bg); color: var(--warn); }
+  .IMPROVED { background: var(--good-bg); color: var(--good); }
+  .BLOCKED { background: var(--bad-bg); color: var(--bad); }
+  .NO.CHANGE, .NO_CHANGE { background: #eceae4; color: var(--muted); }
+  .result { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 16px; }
+  .kv { display: grid; grid-template-columns: 120px 1fr; gap: 6px 12px; font-size: 15px; }
+  .kv span:nth-child(odd) { color: var(--muted); }
+  .bar { height: 8px; background: #eceae4; border-radius: 4px; overflow: hidden; margin-top: 4px; max-width: 240px; }
+  .bar i { display: block; height: 100%; background: var(--accent); }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; color: var(--accent); font-size: 14px; }
+  .case { border-left: 3px solid var(--line); padding: 4px 0 4px 12px; margin: 10px 0; font-size: 14px; }
+  .case small { color: var(--muted); display: block; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 12px 0; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 13px; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .up { color: var(--bad); } .down { color: var(--good); }
+  .tag { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; margin-left: 6px; }
+  .error { color: var(--bad); font-size: 14px; }
+  footer { color: var(--muted); font-size: 14px; text-align: center; }
+  footer a { color: var(--accent); }
+  @media (max-width: 560px) { .kv { grid-template-columns: 1fr; } section { padding: 18px; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>AI Customer Support Agent</h1>
+  <p class="lead">Auto-handles routine airline support messages, escalates risky ones to a human, and tests every change before it ships.</p>
+  <div class="stats">
+    <div class="stat"><b>36,357</b>real support conversations</div>
+    <div class="stat"><b>200</b>hand-labeled test messages</div>
+    <div class="stat"><b>60% → 29%</b>looked automatable vs. actually resolved</div>
+    <div class="stat"><b>91</b>failures tracked as tests</div>
+  </div>
+
+  <section>
+    <h2>1. Try the agent</h2>
+    <p class="hint">Type a customer message. The agent predicts the intent, finds similar past cases and decides whether a human is needed.</p>
+    <textarea id="text" maxlength="1000" placeholder="e.g. my flight got delayed and nobody told me"></textarea>
+    <div class="row">
+      <button class="chip" data-example="my flight got delayed and nobody told me">Flight delay</button>
+      <button class="chip" data-example="I will be contacting my lawyer about the way your staff treated me">Legal threat</button>
+      <button class="chip" data-example="a flight attendant harassed my daughter during the flight">Harassment</button>
+      <button class="chip" data-example="Your app logged me out and now someone else booked a flight on my account">Account takeover</button>
+    </div>
+    <div class="row">
+      <label for="exp">Policy:</label>
+      <select id="exp"><option value="">Current policy</option></select>
+      <button class="primary" id="run">Decide</button>
+    </div>
+    <div id="decision"></div>
+  </section>
+
+  <section>
+    <h2>2. Improvement loop</h2>
+    <p class="hint">Each proposed change is re-run on all 200 test messages and gets one verdict. A change is blocked if it breaks a guardrail.</p>
+    <div class="row" id="tabs"><button class="tab active" data-exp="">Current code</button></div>
+    <div id="loop"></div>
+  </section>
+
+  <footer>Code and full report: <a href="https://github.com/Ugesh123/ai-support-agent-eval">github.com/Ugesh123/ai-support-agent-eval</a></footer>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const label = (s) => s.replace(/_/g, ' ').toLowerCase();
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+async function loadExperiments() {
+  const res = await fetch('/api/experiments');
+  const list = await res.json();
+  for (const e of list) {
+    $('exp').insertAdjacentHTML('beforeend', `<option value="${e.id}">Proposed fix: ${label(e.id)}</option>`);
+    $('tabs').insertAdjacentHTML('beforeend', `<button class="tab" data-exp="${e.id}">${escapeHtml(e.description)}</button>`);
+  }
+}
+
+async function decide() {
+  const text = $('text').value.trim();
+  if (!text) { $('decision').innerHTML = '<p class="error">Type a message first.</p>'; return; }
+  $('decision').innerHTML = '<p class="hint">Deciding...</p>';
+  const res = await fetch('/api/decide', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({text, experiment: $('exp').value}),
+  });
+  const d = await res.json();
+  if (!res.ok) { $('decision').innerHTML = `<p class="error">${escapeHtml(d.error)}</p>`; return; }
+  const pct = Math.round(d.intent_confidence * 100);
+  const evidence = d.evidence.map((e) => `
+    <div class="case">${escapeHtml(e.historical_customer_msg)}
+      <small>Airline replied: ${escapeHtml(e.historical_aa_reply)} · similarity ${e.similarity}</small></div>`).join('');
+  $('decision').innerHTML = `
+    <div class="result">
+      <div class="kv">
+        <span>Decision</span><span><span class="badge ${d.decision}">${label(d.decision)}</span></span>
+        <span>Intent</span><span>${label(d.intent)} (${pct}% confident)<div class="bar"><i style="width:${pct}%"></i></div></span>
+        <span>Reason</span><span>${escapeHtml(d.reason)}</span>
+      </div>
+      <details><summary>5 similar past cases used as evidence</summary>${evidence}</details>
+    </div>`;
+}
+
+async function showLoop(exp) {
+  document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('active', t.dataset.exp === exp));
+  $('loop').innerHTML = '<p class="hint">Re-running all 200 messages...</p>';
+  const res = await fetch('/api/loop?experiment=' + encodeURIComponent(exp));
+  const r = await res.json();
+  const rows = r.metrics.map((m) => {
+    const diff = m.after - m.before;
+    const cls = diff === 0 ? '' : ((diff > 0) === (m.name === 'Verified auto-resolutions') ? 'down' : 'up');
+    return `<tr><td>${m.name}${m.guardrail ? '<span class="tag">guardrail</span>' : ''}</td>
+      <td class="num">${m.before}</td><td class="num ${cls}">${m.after}</td></tr>`;
+  }).join('');
+  const reasons = r.reasons.length ? r.reasons.map((x) => `<li>${escapeHtml(x)}</li>`).join('') : '<li>All guardrails held.</li>';
+  const cases = (items, key) => items.length
+    ? items.map((c) => `<div class="case">${escapeHtml(c.text.slice(0, 160))}<small>${c.pair_id} · ${label(c[key])}</small></div>`).join('')
+    : '<p class="hint">None.</p>';
+  $('loop').innerHTML = `
+    <p><span class="badge ${r.verdict.replace(' ', '_')}">${r.verdict}</span> &nbsp;${escapeHtml(r.description)}</p>
+    <ul>${reasons}</ul>
+    <table><tr><th>Out of 200 messages</th><th class="num">Baseline</th><th class="num">This change</th></tr>${rows}</table>
+    <details ${r.fixed.length ? 'open' : ''}><summary>Fixed (${r.fixed.length})</summary>${cases(r.fixed, 'was')}</details>
+    <details><summary>New failures (${r.new_failures.length})</summary>${cases(r.new_failures, 'now')}</details>`;
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.dataset.example !== undefined) { $('text').value = e.target.dataset.example; decide(); }
+  if (e.target.dataset.exp !== undefined) showLoop(e.target.dataset.exp);
+});
+$('run').addEventListener('click', decide);
+loadExperiments().then(() => showLoop(''));
+</script>
+</body>
+</html>
