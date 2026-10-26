@@ -6,7 +6,7 @@
 - **Decision:** build an agent that auto-handles only what it can answer safely, escalates the rest with a stated reason, and is judged on real outcomes, not accuracy alone.
 - **What I learned:** 60% of messages looked automatable, but only **29%** survived a reply-quality check. Reply quality, not intent accuracy, is what limits automation.
 
-**At a glance:** 36,357 real AmericanAir support conversations · 11 intents · 200-example human-labeled golden set · 0.665 intent accuracy (vs 0.535 baseline) · 200 LLM-judged replies · 60-reply human-vs-judge study · 19 tests in CI
+**At a glance:** 36,357 real AmericanAir support conversations · 11 intents · 200-example human-labeled golden set · 0.665 intent accuracy (vs 0.535 baseline) · 200 LLM-judged replies · 60-reply human-vs-judge study · 29 tests in CI
 
 ---
 
@@ -106,6 +106,27 @@ The full product plan is in [PRD.md](PRD.md): users, north-star metric, guardrai
 
 Full failure analysis: [REPORT.md](REPORT.md), sections 9-12.
 
+## Improvement loop
+
+`evaluation/hill_climb.py` turns every failure into a tracked case, re-runs all 200 golden examples after a change, and gives **one verdict**: IMPROVED, NO CHANGE or BLOCKED (exit code 1, so it can gate CI).
+
+- **Failure types:** needed a human but auto-handled (44) · auto-handled with the wrong intent (34) · escalated when not needed (13). All 91 are saved in [`results/hill_climb/regression_cases.json`](results/hill_climb/regression_cases.json).
+- **Guardrails:** no new dangerous auto-handles, no more safety messages auto-handled, and verified auto-resolutions may drop by at most 4.
+
+| Proposed change (tested in memory) | Dangerous auto-handles | Safety auto-handled | Verified resolutions | Verdict |
+|---|---|---|---|---|
+| Baseline | 44 | 6 | 58 | - |
+| Escalate any message with safety language | 38 | **0** | 58 | **IMPROVED** |
+| Send every refund request to a human | 34 | 6 | 50 | **BLOCKED** (cost 8 good resolutions) |
+
+The second change fixes more dangerous cases but is blocked because it gives up too many good automatic replies. The loop makes that trade-off visible instead of leaving it to judgment. **Caveat:** the safety keywords were written after looking at these failures, so the gain must be confirmed on new labeled data before shipping.
+
+```bash
+python evaluation/hill_climb.py --baseline                      # save baseline + regression cases
+python evaluation/hill_climb.py                                 # compare current code with the baseline
+python evaluation/hill_climb.py --experiment safety_language    # try a proposed change
+```
+
 ## Run it
 
 ```bash
@@ -113,7 +134,7 @@ pip install -r requirements.txt
 
 python src/pipeline.py --text "my flight got delayed and nobody told me"   # one message, offline
 python src/pipeline.py --golden_set                                        # all 200 golden examples
-python -m unittest discover -s tests -v                                    # 19 tests
+python -m unittest discover -s tests -v                                    # 29 tests
 ```
 
 Reply generation and judging need `OPENROUTER_API_KEY` and `OPENROUTER_MODEL` (see [`.env.example`](.env.example)). No API keys are committed to this repository.

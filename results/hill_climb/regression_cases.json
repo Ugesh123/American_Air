@@ -1,0 +1,457 @@
+[
+  {
+    "pair_id": "aa_2864248_2864249",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "But we still are at the gate"
+  },
+  {
+    "pair_id": "aa_94220_94219",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "Hi! Website says check in times for baggage vary by airport. What is earliest passengers may check baggage at SJC?"
+  },
+  {
+    "pair_id": "aa_1463889_1463903",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "I\u2019m still waiting to see confirmation that buying through your eshopping site did indeed earn me miles. It doesn\u2019t even show up yet as pending \ud83d\ude15 Concerned and annoyed bc it was a large purchase and I could\u2019ve used another eportal but I used yours. And nothing. \ud83d\ude2d"
+  },
+  {
+    "pair_id": "aa_2925944_2925942",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "When can you not use First Class check in? When your flying [USER] \"it's for celebrities only\" #FirstWorldProblems"
+  },
+  {
+    "pair_id": "aa_2865587_2865586",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Another lost bag with . You\u2019re batting 100 whenever I fly with you!!! Great job guys!"
+  },
+  {
+    "pair_id": "aa_464537_464536",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": ". you continue to be the worst. Gate agents incredibly inflexible and unhelpful when I had to change my plans last minute. Got kicked off my flight even when I had a seat. Thanks for the #hospitality!"
+  },
+  {
+    "pair_id": "aa_2344855_2344853",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Coming back was better. The staff in Lexington was great. Didn\u2019t have issues until I landed in Shanghai & waited 40 minutes next to the plane doors for a wheelchair, felt unsafe and unnecessary"
+  },
+  {
+    "pair_id": "aa_2259752_2259751",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "and [USER], if you really want people to keep their AAdvantage credit cards, how about at least offering free in-flight wifi? It can't be that hard to figure out how to do."
+  },
+  {
+    "pair_id": "aa_467632_467631",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "I've never see so many angry customers, including myself at the gate agents in LA for Flight 2471 to MIA. Bags that fit perfectly in the check outside are being forced to check them. Plenty of room in the overheads."
+  },
+  {
+    "pair_id": "aa_2951813_2951811",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Shoutout to . The service has been a lil impeccable."
+  },
+  {
+    "pair_id": "aa_2942881_2942880",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "We miss our flight to Belize because of \u201chotel issues.\u201d F you I will never fly with you again."
+  },
+  {
+    "pair_id": "aa_525148_525149",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Amazing how many #AmericanAir employees tell me some version of \u201cnot my job. Including when I called that number. Go to website, search refund, otherwise it takes 45 days. Treatment like this is actionable. Scheme to defraud by making refund unreasonable."
+  },
+  {
+    "pair_id": "aa_2965964_2965963",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Booked American Airlines flight FOR 30 DAYS LATER on my phone, but AA won't cancel/refund. Shouldn't they pay for bad UI? 4h4 hours ago"
+  },
+  {
+    "pair_id": "aa_501089_501088",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Have a seat in first class on AA #750 and all American Airlines can offer us is a frozen boxed breakfast sandwich or a frozen bagel! Not very customer savvy! Changed the process to attain status and feed us boxed meals! I wish USAIR were back!"
+  },
+  {
+    "pair_id": "aa_950151_950152",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Nah, your gate agent reps are rude. Pass on any future business with you"
+  },
+  {
+    "pair_id": "aa_67926_67924",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "Thanks for the AAwesome upgrade ! [URL]"
+  },
+  {
+    "pair_id": "aa_501084_501083",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Fuck . How are you going to charge $50 for a checked bag at the gate? It\u2019s a carry on size roller bag - that\u2019s absolutely ridiculous. And none of your gate agents can explain to me the charges."
+  },
+  {
+    "pair_id": "aa_2095878_2095877",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Tell me how this morning the flight I was looking at was $165 dollars but 3 hours later it\u2019s $265..... why do you wanna do that to me \ud83d\ude44"
+  },
+  {
+    "pair_id": "aa_564604_564602",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "My dad & mom, both in their 70s, both PLT flyers, involuntarily removed from a flight at ORD tonight by extremely rude gate agent named Marti bc AA boarded pax too large to fit in 1 seat. Hope reaches out w/sincere apology & sends Marti back to training."
+  },
+  {
+    "pair_id": "aa_2041984_2041983",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "This entire experience has been a nightmare and the last thing I needed was and making it worse by being rude and condescending. Be better."
+  },
+  {
+    "pair_id": "aa_2964822_2964820",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "If American can't fly on December 20th, will we receive a full refund of our ticket?"
+  },
+  {
+    "pair_id": "aa_525145_525147",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "What is the status of my baggage fee refund? And where are the bags now? A little customer service would go a long way here."
+  },
+  {
+    "pair_id": "aa_551412_551414",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "I have Global entry but precheck didn\u2019t appear on my boarding pass. My known traveler number is part of my advantage profile. Can you help me?"
+  },
+  {
+    "pair_id": "aa_2918268_2918267",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "has to be the worst airline to fly through a unprofessional, mess. \ud83d\ude44"
+  },
+  {
+    "pair_id": "aa_456942_456940",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "i can understand that but your customers should have the option to get a refund. Its not our fault and can affect our jobs"
+  },
+  {
+    "pair_id": "aa_73912_73911",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Life is good when you get a free upgrade to an exit row! Thanks ."
+  },
+  {
+    "pair_id": "aa_1972287_1972286",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "hi I need to book a vegan meal for my flights ref: JIIFNE but can't do it through the website. How can I do this?"
+  },
+  {
+    "pair_id": "aa_1426561_1426559",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "[USER] [USER] which one of you is going to draw the line on the flying kennels you have allowed? Do people with pet allergies have no rights?"
+  },
+  {
+    "pair_id": "aa_2937994_2937993",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "That would be a lot easier to accept if we hadn't contacted customer service to see if there were other flights and it couldn't even be confirmed that we would sitting near each other. I am usually a big fan of your airline, but I am beyond disappointed in this."
+  },
+  {
+    "pair_id": "aa_2867972_2867974",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "it should. But it hasn\u2019t been. I do appreciate all the great flight attendants I had on this trip. They were fantastic"
+  },
+  {
+    "pair_id": "aa_516858_516857",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "thanks for canceling my flight for no reason and causing me to miss the first anniversary i am actually capable of being present for in 5 years, then doing NOTHING about it. Awesome customer service"
+  },
+  {
+    "pair_id": "aa_2915355_2915353",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Hey it has been over two months since you were supposed to grant me a refund, but until today I haven\u2019t receive it. This is unbelievable, this is a lack of respect for customers. What kind of company you are?"
+  },
+  {
+    "pair_id": "aa_2489843_2489844",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Great goal. Not happening currently, trust me. For this customer, you'll have to significantly improve to get me to consider flying unless I absolutely have to. The experience is 50-60% worse than my favorite airlines. Which seems sad & unnecessary. But good luck!!"
+  },
+  {
+    "pair_id": "aa_1348727_1348726",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "I know Customer Service isn\u2019t a thing values... but there is ZERO need for a flight attendant to be rude & condescending to a four-year old! (Diane on flight AA0678, was the attendant in question)"
+  },
+  {
+    "pair_id": "aa_2692268_2692267",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": ". flight from MIA to Ecuador circled a few times and turned back to airport. Waiting to find out what the problem is. [URL]"
+  },
+  {
+    "pair_id": "aa_2664120_2664118",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "[USER] And then, plane staff harassed him further when he was told there was no bin space and he found some...#passengerbillofrights needs to be adjusted for this kind of aggressive handling by tired plane personnel...and my client deserves an apology."
+  },
+  {
+    "pair_id": "aa_1667119_1667117",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "ok tonight I've sent tweet after tweet about different concerns good n not so good n have been totally ignored. To be expected as u guys are AA. I expect a respond 4 each of my tweets. They reflect my loyalty as Exec Plat."
+  },
+  {
+    "pair_id": "aa_353650_353648",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "How do I get a refund on the inflight WiFi I purchased? The connection is so intermittent it\u2019s unusable. $19 wasted really."
+  },
+  {
+    "pair_id": "aa_453588_453587",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Hey , your website is down ? Access Denied You don't have permission to access \"[URL] on this server."
+  },
+  {
+    "pair_id": "aa_2023112_2023110",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Dear , i have never used your airline in the past and after my experience today, i never will again. The customer service here is completely unacceptable. I would be in the wrong if i went off at the ticket agent BUT it would be warranted"
+  },
+  {
+    "pair_id": "aa_1231991_1231989",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "When I checked in yesterday I was in seat 6D. If the reservation is locked, how was I moved to 21D just an hour or so ago?"
+  },
+  {
+    "pair_id": "aa_2807947_2807946",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Hey , what\u2019s the upgrade of #conciergeKey? Today\u2019s service at #Eze was worst than coach. Only excuses from the team do not deliver #marketingStunt"
+  },
+  {
+    "pair_id": "aa_86577_86575",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "list of affected flights please"
+  },
+  {
+    "pair_id": "aa_163851_163849",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Omg! on hold for 44 minutes and you hung up on me?!! I was merely holding to pay for an upgrade - dude transfers me and hangs up! #travel [URL]"
+  },
+  {
+    "pair_id": "aa_452304_452302",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "Paid $25 to check my bag, now they\u2019re offering \u2018free bag check\u2019 at the gate. #LessonsLearned #packlighter #headedtosunshine"
+  },
+  {
+    "pair_id": "aa_471017_471018",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "10 years ago, as an unaccompanied minor flying with aa, I was sexually assaulted by a passenger in my row. I informed flight attendants and was told police would be there when we landed. Instead, the employee at gate said if I told my parents they would be mad at me."
+  },
+  {
+    "pair_id": "aa_1232016_1232013",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Gate agent in DEN said we would have to wait til we get to DFW, we have a short connection and will probably not arrive in time for DFW gate agent to help us. Very disappointed in customer service and generic bot answer"
+  },
+  {
+    "pair_id": "aa_2853172_2853171",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "I\u2019ve tried 5 times over the past 3 days to book my flights...yet every time I get a system error. I\u2019ve tried different web browsers and different credit cards, even the app...same results!"
+  },
+  {
+    "pair_id": "aa_459202_459201",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "I will hear from you \"shortly\", huh? Re: 1-25820102879... Been waiting over 36hrs for a reply. That's after being referred by your \"Advantage\" agent to talk to your website instead. Terrible customer service!"
+  },
+  {
+    "pair_id": "aa_165227_165226",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "found my lost iPad and contacted me before I was even 100% sure it was lost. Soooo appreciated!"
+  },
+  {
+    "pair_id": "aa_1876321_1876319",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "what's missing from my window seat. Website needs to address when 737 revision gets rid of a window seat. This claustrophobic Platinum member is NOT happy right now! [URL]"
+  },
+  {
+    "pair_id": "aa_828639_828638",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "#AmericanAirlines please have your MIA staff learn some social skills and manners #rude #dontflyaa"
+  },
+  {
+    "pair_id": "aa_2954881_2954880",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "another maintenance issue!! Flight #2475.... this is getting to be common with your planes! Get new ones!!!"
+  },
+  {
+    "pair_id": "aa_494412_494410",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "worst airline service I\u2019ve ever experienced. 3 delays, 3 and a half hours with no explanation. I\u2019ll never be using American Airlines again This is ridiculously unacceptable"
+  },
+  {
+    "pair_id": "aa_2911107_2911106",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "How generous of to let me spend ~$20 for a window seat with no window... [URL]"
+  },
+  {
+    "pair_id": "aa_514206_514205",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Good job for handling an unruly passenger on Flt 1559 from ORD to MSP. Women wouldn\u2019t stop swearing and singing while we taxied out. Returned to gate. Crew did great job to remove her and resolve \ud83d\udc4d"
+  },
+  {
+    "pair_id": "aa_2956558_2956557",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "As GOLD STATUS MEMBER ....I will riot if my flights are cancelled. [URL]"
+  },
+  {
+    "pair_id": "aa_2919505_2919499",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "The worst customer service and advantage program ever. They\u2019ll take your money for a flt and bill you for your Admirals Club Membership but not credit your account. But being short of Platinum Status they want you to pay extra for it. United or Delta here I come. \ud83d\udc4b"
+  },
+  {
+    "pair_id": "aa_2870162_2870161",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "how do I get my money back for the useless gogo air internet? Totally unusable. Only good to stream your movies which are free."
+  },
+  {
+    "pair_id": "aa_2941619_2941618",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "., did someone steal your window or what? Look at this amazing window seat view! #AirlinesProblems [URL]"
+  },
+  {
+    "pair_id": "aa_455774_455773",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "Used mobile app: success. Thank you!"
+  },
+  {
+    "pair_id": "aa_1050207_1050208",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "After 4 different agents, I FINALLY got someone who could book it--after I pointed out that it was on [URL] that it can be booked now. It seems the agents need some training on booking Reduced Mileage awards!"
+  },
+  {
+    "pair_id": "aa_86581_86580",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "More information on the ground (so passengers can make decisions in a timely manner) and appropriate compensation for an expensive ticket that was supposed to be more convenient but wasn't."
+  },
+  {
+    "pair_id": "aa_2907420_2907418",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "One of the passenger requested her name and once she knew she started to threat the passenger asking her seat number and talking to the lead cabin attendant."
+  },
+  {
+    "pair_id": "aa_2220421_2220419",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Hi , I fly every week & avoid your airline as much as possible. I just want to know why we can never leave on time?? I was stuck booking with y'all & once again you never fail to disappoint. #avoidAA"
+  },
+  {
+    "pair_id": "aa_2814126_2814125",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "I made a mistake in the name of one of the passengers. I wrote Alexandre but it's Alexandra. What can I do to change this prior to getting to airport?"
+  },
+  {
+    "pair_id": "aa_584318_584317",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "After this experience today, I will never fly with ever again...... such a disappointment:("
+  },
+  {
+    "pair_id": "aa_511964_537018",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Thank you American Airlines! I never doubted your teams! You\u2019re the best!! Signed, #AAdvantageMember"
+  },
+  {
+    "pair_id": "aa_2664129_2664128",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "thank you sooo much for having [USER] as your cover star this month on American Way. My eyes had two very happy flights this week!! \ud83d\ude0d\ud83d\ude0d"
+  },
+  {
+    "pair_id": "aa_2873851_2974066",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "In my case, I had to travel coach after paying for a business class seat and I had to reach out to AA several times to initiate a resume. And the agent made it sound like it was my mistake and that it's not something that is worth any sort of compensation."
+  },
+  {
+    "pair_id": "aa_2385765_2385764",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "maybe it\u2019s not your company as a whole, but the customer service we received this morning was terrifying! This made for a horrible Holliday season!! \ud83d\ude21\ud83d\ude21"
+  },
+  {
+    "pair_id": "aa_2919532_2919534",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "I shouldn't have to go to the gate agent. I fly a ton, earned every mile of my status, and should be able to take care of everything from my online account. Platinum+ members should be able to pick seats, even with \"Basic Fare.\""
+  },
+  {
+    "pair_id": "aa_2839452_2839453",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Will you be reimbursing my ONLY day we have for Disney as this is a maintenance issue? Unacceptable for a hub. #disappointedloyalAAflier"
+  },
+  {
+    "pair_id": "aa_2282589_2282595",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Then this could've all been handled but she went and lied to the other flight attendants so when I went to talk to explain my side nobody looked at the situation objectively. If I get harassed when I get off the plane by them I'm sueing n boycotting this airline I swear to God"
+  },
+  {
+    "pair_id": "aa_552814_552812",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "It's been an hour. You consider that acceptable customer service #incompetence #unacceptable"
+  },
+  {
+    "pair_id": "aa_890743_890746",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "now the part is not available. Gina tried to reschedule our connection but now we don\u2019t have a flight to Charlotte"
+  },
+  {
+    "pair_id": "aa_2943933_2943932",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "so I've done all u asked and no one is responding .. nice way to treat frequent costumer and I have another flight book with guys for the 5th..some loyalty exchange ..smh"
+  },
+  {
+    "pair_id": "aa_2862900_2862899",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "not involve, in love haha now i rude"
+  },
+  {
+    "pair_id": "aa_104375_104374",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": ", I requested reset password. I got email with the temp password, and I can't login with that info... WTF? [URL]"
+  },
+  {
+    "pair_id": "aa_67923_67922",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "can you check recent co-pay upgrade on PNR TSFYGO, showed up on CC in $ instead of KRW"
+  },
+  {
+    "pair_id": "aa_514276_514275",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "I would move heaven and earth to make it to Kalani and Bobby\u2019s wedding so thank god was able to change my flight and get me there"
+  },
+  {
+    "pair_id": "aa_96030_96029",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "I do not believe there was. Sorry for the delay. I specifically had booked that seat as it was a bulkhead and I am quite tall as well."
+  },
+  {
+    "pair_id": "aa_2830353_2830355",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "Your staff at a crazy LGA Monday after Thanksgiving were so nice and helpful dealing with stressed passengers! Wish I had their names."
+  },
+  {
+    "pair_id": "aa_2054338_2054339",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Will do that - thank you! Should a bug/issue be filled internally so that the [URL] website gets corrected to remove VCP from the list of destinations?"
+  },
+  {
+    "pair_id": "aa_2983878_2983877",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "Hold AA reservation for Xmas week travel. If AMR has to cancel one/both flights due to no pilots - what will AMR do to ensure a) we get where we\u2019re supposed to, b) we get home - both on-time? Thx."
+  },
+  {
+    "pair_id": "aa_506187_506186",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "I usually love flying with you, but our experience at LAX today was the worst flying experience I've ever had."
+  },
+  {
+    "pair_id": "aa_2901330_2901328",
+    "failure_type": "UNNECESSARY_ESCALATION",
+    "text": "Been waiting for almost an hour for to assign my seat along with more passangers who want to get home to San Juan, Puerto Rico and the plane is boarding in less than 20 minutes. And we still don\u2019t have seats. We\u2019ve been waiting forever."
+  },
+  {
+    "pair_id": "aa_2259738_2259739",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Thank you! I didn't mean to sound harsh. I just want to provide feedback. It's not the first it's happened"
+  },
+  {
+    "pair_id": "aa_1426578_1426577",
+    "failure_type": "WRONG_INTENT_AUTO_HANDLE",
+    "text": "Could not have been more impressed with the service of the gate agent after a flight delay caused me to miss my connection and spend the night in Dallas. #ManyThanks"
+  },
+  {
+    "pair_id": "aa_2826274_2826275",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "once again thanks for your reply. Am I going to be able to redeem more than one voucher for a single ticket?"
+  },
+  {
+    "pair_id": "aa_2976899_2976898",
+    "failure_type": "DANGEROUS_AUTO_HANDLE",
+    "text": "- I have a reservation on Dec 25th. MCI to LGA - what is my risk??"
+  }
+]
